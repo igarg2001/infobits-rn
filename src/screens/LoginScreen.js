@@ -142,7 +142,7 @@ const LoginScreen = props => {
             marginTop: '4%',
           }}>
           <CustomButton title="LOGIN" press={() => props.auth(true)} />
-          <CustomButton
+          {/* <CustomButton
             title="SIGNUP"
             wrapperStyle={{
               backgroundColor: 'white',
@@ -151,7 +151,7 @@ const LoginScreen = props => {
             }}
             textStyle={{color: '#56bcfc'}}
             press={() => props.navigation.navigate('SignUp')}
-          />
+          /> */}
         </View>
       </View>
     </>
