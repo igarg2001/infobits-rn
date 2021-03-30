@@ -1,22 +1,10 @@
 import React, {useReducer} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
-import {connect} from 'react-redux';
-import {auth} from '../actions/actionCreators/auth';
-import PageHeading from '../components/PageHeading';
-import Frame from '../assets/svg/Frame';
-//import {in} from 'react-native/Libraries/Animated/Easing';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
+import CustomButton from '../components/customButton';
 import InputField from '../components/InputField';
 import {formValidators} from '../utils/formValidators';
-import CustomButton from '../components/customButton';
 
-const SignUpScreen = props => {
+const ForgotPasswordScreen = props => {
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -47,11 +35,11 @@ const SignUpScreen = props => {
   const [state, dispatch] = useReducer(reducer, {
     inputs: [
       {
-        name: 'User Id',
+        name: 'BITS ID/PSRM Number',
         id: 'Input #1',
         config: {
           type: 'text',
-          placeholder: 'User Id',
+          placeholder: 'BITS ID/PSRM Number',
           //icon: userIcon,
         },
         value: '',
@@ -63,17 +51,17 @@ const SignUpScreen = props => {
         touched: false,
       },
       {
-        name: 'Password',
+        name: 'BITS Email ID',
         id: 'Input #2',
         config: {
-          type: 'password',
-          placeholder: 'Password',
+          type: 'email',
+          placeholder: 'BITS Email ID',
           //icon: padlockIcon,
         },
         value: '',
         validation: {
           required: true,
-          isPassword: true,
+          isEmail: true,
         },
         errorMsg: '',
         valid: false,
@@ -89,20 +77,27 @@ const SignUpScreen = props => {
     });
   };
 
-  state.inputs.map(el => {
-    console.log(el.value);
-  });
-
   return (
     <>
       <View style={styles.wrapper}>
         <View style={styles.heading}>
-          <PageHeading title="LOGIN" />
+          <Text style={{color: '#339cde'}}>Forgot Password</Text>
         </View>
-        <View style={{width: '75%'}}>
-          <Frame width={'100%'} />
+        <View style={styles.main}>
+          <Text
+            style={{
+              color: '#339cde',
+              fontWeight: '700',
+              fontSize: 30,
+              textAlign: 'center',
+            }}>
+            Forgot Password?
+          </Text>
+          <Text style={{color: '#8b8b99', textAlign: 'center'}}>
+            Lorem Ipsum Doler Sita Amen is this Latin Ipsum Dolor?
+          </Text>
         </View>
-        <View style={{width: '90%', marginTop: 16}}>
+        <View style={{width: '90%', marginTop: '16%'}}>
           <FlatList
             data={state.inputs}
             keyExtractor={input => input.id}
@@ -120,54 +115,12 @@ const SignUpScreen = props => {
               />
             )}></FlatList>
         </View>
-        <View
-          style={{
-            position: 'relative',
-            right: 0,
-            alignSelf: 'flex-end',
-            marginRight: '5%',
-            marginTop: '1%',
-          }}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('ForgotPass')}>
-            <Text style={{color: '#339cde'}}>Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '90%',
-            justifyContent: 'space-around',
-            marginTop: '4%',
-          }}>
-          <CustomButton title="LOGIN" />
-          <CustomButton
-            title="SIGNUP"
-            wrapperStyle={{
-              backgroundColor: 'white',
-              borderWidth: 1,
-              borderColor: '#56bcfc',
-            }}
-            textStyle={{color: '#56bcfc'}}
-            press={() => props.navigation.navigate('SignUp')}
-          />
+        <View style={{position: "absolute", width: "90%", bottom: 0, marginBottom: "5%"}}>
+          <CustomButton wrapperStyle={{width: '100%'}} title="RESET PASSWORD" />
         </View>
       </View>
     </>
   );
-};
-
-const mapStatetoProps = state => {
-  return {
-    loading: state.auth.loading,
-  };
-};
-
-const mapDispatchtoProps = dispatch => {
-  return {
-    auth: value => dispatch(auth(value)),
-  };
 };
 
 const styles = StyleSheet.create({
@@ -182,6 +135,11 @@ const styles = StyleSheet.create({
   heading: {
     marginTop: '8%',
   },
+  main: {
+    marginTop: '24%',
+    width: '90%',
+    textAlign: 'center',
+  },
 });
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(SignUpScreen);
+export default ForgotPasswordScreen;
