@@ -39,6 +39,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isAuth: action.value,
+        resUser: action.user,
       };
     }
     case CREATE_ACC:

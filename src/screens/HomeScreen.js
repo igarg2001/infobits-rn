@@ -1,5 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Image,
+} from 'react-native';
+import {connect} from 'react-redux';
 import Hamburger from '../assets/svg/Hamburger';
 import Profile from '../assets/svg/Profile';
 import HomeCards from '../components/HomeCards';
@@ -18,7 +26,8 @@ const HomeScreen = props => {
               <Text style={{fontSize: 18}}>info</Text>
               <Text style={{fontWeight: '700', fontSize: 18}}>BITS</Text>
             </View>
-            <View
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Profile')}
               style={{
                 width: 32,
                 height: 32,
@@ -29,9 +38,9 @@ const HomeScreen = props => {
                 alignItems: 'center',
               }}>
               <Profile />
-            </View>
+            </TouchableOpacity>
           </View>
-          <View style={{marginTop: '12%'}}>
+          <View style={{marginTop: '12%', marginHorizontal: '8%'}}>
             <Text style={{textAlign: 'right'}}>
               “Quote is a good way to fill spaces that can’t be used otherwise”
             </Text>
@@ -41,69 +50,82 @@ const HomeScreen = props => {
           </View>
         </View>
         <View style={{marginTop: '8%', width: '90%'}}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Spaces')}
+          <View style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Spaces')}
+              style={{
+                height: 135,
+                width: '47.5%',
+                backgroundColor: 'white',
+                borderRadius: 6,
+                marginRight: '5%',
+                paddingTop: '4%',
+                paddingLeft: '5%',
+              }}>
+              <Image source={require('../assets/images/spaces.png')} />
+              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
+                Library Spaces
+              </Text>
+              <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Resources')}
+              style={{
+                height: 135,
+                width: '47.5%',
+                backgroundColor: 'white',
+                borderRadius: 6,
+                paddingTop: '4%',
+                paddingLeft: '5%',
+              }}>
+              <Image source={require('../assets/images/spaces.png')} />
+              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
+                Library Resources
+              </Text>
+              <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
+            </TouchableOpacity>
+          </View>
+          <View
             style={{
-              width: '100%',
-              borderRadius: 12,
-              backgroundColor: 'white',
-              height: 64,
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 18, fontWeight: '700'}}>
-              Library Spaces
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Resources')}
-            style={{
+              flexDirection: 'row',
               width: '100%',
-              borderRadius: 12,
-              backgroundColor: 'white',
-              height: 64,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '2%',
+              marginTop: '4%',
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700'}}>
-              Library Resources
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Services')}
-            style={{
-              width: '100%',
-              borderRadius: 12,
-              backgroundColor: 'white',
-              height: 64,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '2%',
-            }}>
-            <Text style={{fontSize: 18, fontWeight: '700'}}>
-              Library Services
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Services')}
-            style={{
-              width: '100%',
-              borderRadius: 12,
-              backgroundColor: 'white',
-              height: 64,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '2%',
-            }}>
-            <Text style={{fontSize: 18, fontWeight: '700'}}>
-              Shibboleth Remote Access
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Services')}
+              style={{
+                height: 135,
+                width: '47.5%',
+                backgroundColor: 'white',
+                borderRadius: 6,
+                marginRight: '5%',
+                paddingTop: '4%',
+                paddingLeft: '5%',
+              }}>
+              <Image source={require('../assets/images/spaces.png')} />
+              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
+                Library Services
+              </Text>
+              <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                height: 135,
+                width: '47.5%',
+                backgroundColor: 'white',
+                borderRadius: 6,
+                paddingTop: '4%',
+                paddingLeft: '5%',
+                paddingBottom: "4%"
+              }}>
+              <Image source={require('../assets/images/spaces.png')} />
+              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
+                Shibboleth Remote Access
+              </Text>
+              <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{alignSelf: 'flex-start', marginTop: '8%', marginLeft: '5%'}}>
@@ -133,7 +155,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(86, 188, 252)',
     //transform: [{matrix: [-1, 0.04, 0.04, 1, 0, 0, 0, 0, 0]}],
-    height: '25%',
+    height: '23.5%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -148,4 +170,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+const mapStatetoProps = state => {
+  return {
+    resUser: state.auth.resUser,
+  };
+};
+
+const mapDispatchtoProps = dispatch => {
+  return {};
+};
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(HomeScreen);

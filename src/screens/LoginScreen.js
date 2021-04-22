@@ -8,7 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {auth} from '../actions/actionCreators/auth';
+import {auth, login} from '../actions/actionCreators/auth';
 import PageHeading from '../components/PageHeading';
 import Frame from '../assets/svg/Frame';
 //import {in} from 'react-native/Libraries/Animated/Easing';
@@ -17,6 +17,7 @@ import {formValidators} from '../utils/formValidators';
 import CustomButton from '../components/customButton';
 
 const LoginScreen = props => {
+  
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -141,7 +142,16 @@ const LoginScreen = props => {
             justifyContent: 'space-around',
             marginTop: '4%',
           }}>
-          <CustomButton title="LOGIN" press={() => props.auth(true)} />
+          <CustomButton
+            title="LOGIN"
+            press={() =>
+              props.auth(
+                state.inputs[0].value,
+                state.inputs[1].value,
+                props.navigation.navigate,
+              )
+            }
+          />
           {/* <CustomButton
             title="SIGNUP"
             wrapperStyle={{
@@ -161,12 +171,14 @@ const LoginScreen = props => {
 const mapStatetoProps = state => {
   return {
     loading: state.auth.loading,
+    resUser: state.auth.resUser,
   };
 };
 
 const mapDispatchtoProps = dispatch => {
   return {
-    auth: value => dispatch(auth(value)),
+    auth: (username, password, navigate) =>
+      dispatch(login(username, password, navigate)),
   };
 };
 
