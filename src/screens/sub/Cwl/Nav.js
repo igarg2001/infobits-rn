@@ -7,31 +7,39 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import Hamburger from '../../assets/svg/ArrowLeft';
-import NavCard from '../../components/NavCard';
-const Services = props => {
+import Hamburger from '../../../assets/svg/ArrowLeft';
+import NavCard from '../../../components/NavCard';
+const Nav = props => {
   const items = [
     {
-      title: 'Connect With Library',
+      title: 'Book Recommendation',
       about: 'Provide book recommendations maybe in two lines',
-      press: () => props.navigation.navigate("cnl")
+      press: () => props.navigation.navigate('BookRec'),
     },
     {
-      title: 'Daily News',
+      title: 'Book Review',
       about: 'Provide book recommendations maybe in two lines',
-      press: () => props.navigation.navigate("News")
+      press: () => props.navigation.navigate('BookRev'),
     },
     {
-      title: 'Periodical Finder',
+      title: 'Inaccessible Database',
       about: 'Provide book recommendations maybe in two lines',
+      press: () => props.navigation.navigate('Id'),
     },
     {
-      title: 'Ask For Articles',
+      title: 'Service Issue',
       about: 'Provide book recommendations maybe in two lines',
+      press: () => props.navigation.navigate('Si'),
     },
     {
-      title: 'Lost And Found',
+      title: 'Document Not Found',
       about: 'Provide book recommendations maybe in two lines',
+      press: () => props.navigation.navigate('Dnf'),
+    },
+    {
+      title: 'Feedback',
+      about: 'Provide book recommendations maybe in two lines',
+      press: () => props.navigation.navigate('Feedback'),
     },
   ];
   return (
@@ -43,17 +51,21 @@ const Services = props => {
               <Hamburger />
             </TouchableOpacity>
             <Text style={{fontWeight: '700', fontSize: 18}}>
-              Library Services
+              Connect With Library
             </Text>
             <View style={{flex: 0.3}}></View>
           </View>
         </View>
-        <View style={{marginTop: '5%'}}></View>
+        <View style={{marginTop: '10%'}}></View>
         <FlatList
           data={items}
           renderItem={({item}) => (
             <View style={{width: '90%', display: 'flex', alignItems: 'center'}}>
-              <NavCard title={item.title} about={item.about} press={item.press} />
+              <NavCard
+                title={item.title}
+                about={item.about}
+                press={item.press}
+              />
             </View>
           )}
         />
@@ -68,6 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     minHeight: '100%',
+    backgroundColor: 'white',
   },
   lightHeader: {
     width: '100%',
@@ -88,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Services;
+export default Nav;

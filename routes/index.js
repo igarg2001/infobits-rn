@@ -9,10 +9,10 @@ import {connect} from 'react-redux';
 const Routes = props => {
   let token = null;
   const [loaded, setLoaded] = useState(false);
-  AsyncStorage.getItem('token')
+  AsyncStorage.getItem('userDetails')
     .then(res => {
-      token = res;
-      //props.auth(!!token);
+      token = res ? JSON.parse(res) : null;
+      props.auth(!!token, token);
       setTimeout(() => setLoaded(true), 1000);
     })
     .catch(err => console.log(err));
@@ -26,7 +26,7 @@ const mapStatetoProps = state => ({
 
 const mapDispatchtoProps = dispatch => {
   return {
-    auth: value => dispatch(auth(value)),
+    auth: (value, user) => dispatch(auth(value, user)),
   };
 };
 

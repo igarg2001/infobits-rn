@@ -7,6 +7,8 @@ import Lnf from '../../src/screens/sub/Lnf';
 import Services from '../../src/screens/navs/Services';
 import Spaces from '../../src/screens/navs/Spaces';
 import Resources from '../../src/screens/navs/Resources';
+import Profile from '../../src/screens/sub/Profile';
+import CwlStack from './CwlStack';
 const Drawer = createDrawerNavigator();
 
 const DrawerRoutes = props => (
@@ -17,9 +19,11 @@ const DrawerRoutes = props => (
     <Drawer.Screen name="Home" component={HomeScreen}></Drawer.Screen>
     <Drawer.Screen name="News" component={DailyNews}></Drawer.Screen>
     <Drawer.Screen name="lnf" component={Lnf}></Drawer.Screen>
+    <Drawer.Screen name="Profile" component={Profile}></Drawer.Screen>
     <Drawer.Screen name="Spaces" component={Spaces}></Drawer.Screen>
     <Drawer.Screen name="Services" component={Services}></Drawer.Screen>
     <Drawer.Screen name="Resources" component={Resources}></Drawer.Screen>
+    <Drawer.Screen name="cwl" component={CwlStack}></Drawer.Screen>
   </Drawer.Navigator>
 );
 

@@ -1,7 +1,13 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
 const DrawerContent = props => {
   const [user, getUser] = useState({
@@ -12,7 +18,9 @@ const DrawerContent = props => {
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1}}>
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
-        <TouchableOpacity style={style.profileWrapper}>
+        <TouchableOpacity
+          style={style.profileWrapper}
+          onPress={() => props.navigation.navigate('Profile')}>
           <View style={style.avatar}>
             <Text></Text>
           </View>
@@ -99,7 +107,14 @@ const DrawerContent = props => {
           icon={() => <View style={style.drawerIcon}></View>}
           style={{marginTop: -4}}
         />
-        <View style={{display: 'flex', flexDirection: 'row', width: '100%', height: '12%'}}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            height: '12%',
+            marginTop: '4%',
+          }}>
           <View style={{width: '33%', backgroundColor: '#75c3e8'}}></View>
           <View style={{width: '33%', backgroundColor: '#ed1c24'}}></View>
           <View style={{width: '34%', backgroundColor: '#faca2c'}}></View>
