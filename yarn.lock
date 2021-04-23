@@ -703,6 +703,14 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
+"@callstack/react-theme-provider@^3.0.5":
+  "integrity" "sha512-Iec+ybWN0FvNj87sD3oWo/49edGUP0UOSdMnzCJEFJIDYr992ECIuOV89burAAh2/ibPCxgLiK6dmgv2mO/8Tg=="
+  "resolved" "https://registry.npmjs.org/@callstack/react-theme-provider/-/react-theme-provider-3.0.5.tgz"
+  "version" "3.0.5"
+  dependencies:
+    "deepmerge" "^3.2.0"
+    "hoist-non-react-statics" "^3.3.0"
+
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="
   "resolved" "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz"
@@ -2159,7 +2167,7 @@
     "color-name" "^1.0.0"
     "simple-swizzle" "^0.2.2"
 
-"color@^3.1.3":
+"color@^3.1.2", "color@^3.1.3":
   "integrity" "sha512-xgXAcTHa2HeFCGLE9Xs/R82hujGtu9Jd9x4NW3T34+OMs7VoPsjwzRczKHvTAHeJwWFwX5j15+MgAppE8ztObQ=="
   "resolved" "https://registry.npmjs.org/color/-/color-3.1.3.tgz"
   "version" "3.1.3"
@@ -2689,6 +2697,11 @@
   "integrity" "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA=="
   "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   "version" "4.0.0"
+
+"escape-string-regexp@2.0.0":
+  "integrity" "sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w=="
+  "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
+  "version" "2.0.0"
 
 "escodegen@^2.0.0":
   "integrity" "sha512-mmHKys/C8BFUGI+MAWNcSYoORYLMdPzjrknd2Vc+bUsjN5bXcr8EhrNB+UTqfL1y3I9c4fw2ihgtMPQLBRiQxw=="
@@ -3504,7 +3517,7 @@
   "resolved" "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
   "version" "1.4.0"
 
-"invariant@^2.2.4":
+"invariant@^2.2.4", "invariant@2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   "version" "2.2.4"
@@ -4917,6 +4930,11 @@
   "resolved" "https://registry.npmjs.org/mockdate/-/mockdate-3.0.5.tgz"
   "version" "3.0.5"
 
+"moment@^2.24.0":
+  "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
+  "version" "2.29.1"
+
 "ms@2.0.0":
   "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -5575,10 +5593,27 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
 
-"react-native-iphone-x-helper@^1.3.0":
+"react-native-iphone-x-helper@^1.3.0", "react-native-iphone-x-helper@^1.3.1":
   "integrity" "sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg=="
   "resolved" "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   "version" "1.3.1"
+
+"react-native-month-year-picker@^1.6.4":
+  "integrity" "sha512-cgL+A9nNASkQR8WOkzmXdFOiMI+BcqJekLkqvZSUfQi4bJw65PdIBl5VsaHP1pchBgUbw61GQRxS8pS/qAeeOA=="
+  "resolved" "https://registry.npmjs.org/react-native-month-year-picker/-/react-native-month-year-picker-1.6.4.tgz"
+  "version" "1.6.4"
+  dependencies:
+    "invariant" "^2.2.4"
+    "moment" "^2.24.0"
+
+"react-native-paper@^4.7.2":
+  "integrity" "sha512-XgMxcXHbawCZJFLfvXYH7V7i9HEsgjs2EidtVpP8j8aonUknQAMlI4wihgSxL6419U6iFDEaY2FDFRVAWuhucw=="
+  "resolved" "https://registry.npmjs.org/react-native-paper/-/react-native-paper-4.8.0.tgz"
+  "version" "4.8.0"
+  dependencies:
+    "@callstack/react-theme-provider" "^3.0.5"
+    "color" "^3.1.2"
+    "react-native-iphone-x-helper" "^1.3.1"
 
 "react-native-reanimated@^2.0.1":
   "integrity" "sha512-Wg/mEdI8xMRDQHYkgNGztJDjAcx1EFR5OMMtXrLSMmT0qzqcRWcVZgDHBN2MEAJqem/HkPAoOFutWzibwvinVg=="
@@ -5612,6 +5647,14 @@
   "integrity" "sha512-t41ZlktJnG0D6sva/xL06mDDIkglMwnWIKhRPC2Ll6iP4fUVqv4bXtxMP1HhHwQmlT6B9FQMU1/RF+VqpK3a1A=="
   "resolved" "https://registry.npmjs.org/react-native-swiper-flatlist/-/react-native-swiper-flatlist-3.0.14.tgz"
   "version" "3.0.14"
+
+"react-native-webview@^11.4.2":
+  "integrity" "sha512-reGWtlFCQCgZEROy0IJaI5iMhrhFzedNIFlj0d6eo0K6T91eeKaoDr24ebBvqmeemOCj0ZYtzX19qiInRznhLA=="
+  "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.4.2.tgz"
+  "version" "11.4.2"
+  dependencies:
+    "escape-string-regexp" "2.0.0"
+    "invariant" "2.2.4"
 
 "react-native@0.64.0":
   "integrity" "sha512-8dhSHBthgGwAjU+OjqUEA49229ThPMQH7URH0u8L0xoQFCnZO2sZ9Wc6KcbxI0x9KSmjCMFFZqRe3w3QsRv64g=="
