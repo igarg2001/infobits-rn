@@ -17,27 +17,27 @@ const Nav = props => {
       press: () => props.navigation.navigate('BookRec'),
     },
     {
-      title: 'Book Review',
+      title: 'I Just Read This Book ',
       about: 'Provide book recommendations maybe in two lines',
       press: () => props.navigation.navigate('BookRev'),
     },
     {
-      title: 'Inaccessible Database',
+      title: 'Database Not Accessible',
       about: 'Provide book recommendations maybe in two lines',
       press: () => props.navigation.navigate('Id'),
     },
     {
-      title: 'Service Issue',
+      title: 'Not Happy With The Service',
       about: 'Provide book recommendations maybe in two lines',
       press: () => props.navigation.navigate('Si'),
     },
     {
-      title: 'Document Not Found',
+      title: 'Document Not Found On The Shelf',
       about: 'Provide book recommendations maybe in two lines',
       press: () => props.navigation.navigate('Dnf'),
     },
     {
-      title: 'Feedback',
+      title: 'Feedback Form',
       about: 'Provide book recommendations maybe in two lines',
       press: () => props.navigation.navigate('Feedback'),
     },

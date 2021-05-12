@@ -5,6 +5,7 @@ import {
   CREATE_ACC,
   CREATE_ACC_FAIL,
   CREATE_ACC_SUCCESS,
+  LOGOUT,
   SET_AUTH,
 } from '../actions/actionTypes';
 
@@ -59,6 +60,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         isAuth: false,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuth: false,
+        resUser: null,
       };
     default:
       return state;

@@ -1,20 +1,33 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
+import AvatarIcon from '../src/assets/svg/Avatar';
 
 const DrawerContent = props => {
+  console.log(props.resUser);
   const [user, getUser] = useState({
-    name: 'Harshit Lohani',
-    email: 'f20190061@pilani.bits-pilani.ac.in',
+    name: 'name',
+    email: 'email',
   });
   const [dp, setDp] = useState('dp');
+  useEffect(() => {
+    AsyncStorage.getItem('userDetails').then(res => {
+      const json = JSON.parse(res);
+      getUser({
+        name: json.name,
+        email: json.email,
+      });
+    });
+  }, []);
+
+  console.log(AvatarIcon)
+
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1}}>
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
@@ -22,7 +35,8 @@ const DrawerContent = props => {
           style={style.profileWrapper}
           onPress={() => props.navigation.navigate('Profile')}>
           <View style={style.avatar}>
-            <Text></Text>
+            <View style={{position: "absolute", top: 0}}><AvatarIcon width="100%" /></View>
+            
           </View>
           <View style={style.details}>
             <Text style={{fontSize: 22, fontWeight: '500'}}>{user.name}</Text>
@@ -140,7 +154,7 @@ const style = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 52,
-    backgroundColor: 'white',
+    backgroundColor: "#f2f2f2"
   },
   drawerIcon: {
     width: 32,

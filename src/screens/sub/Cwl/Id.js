@@ -4,8 +4,9 @@ import CwlCard from '../../../components/CwlCard';
 import BackIcon from '../../../assets/svg/ArrowLeft';
 import {formValidators} from '../../../utils/formValidators';
 import CustomButton from '../../../components/customButton';
+import axios from '../../../apis/axiosInstance';
 
-const Id = (props) => {
+const Id = props => {
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -89,7 +90,20 @@ const Id = (props) => {
     ],
     formIsValid: false,
   });
-  
+
+  const submitData = data => {
+    let submitData = [];
+    for (let i of data) submitData.push(i.value);
+    console.log(submitData);
+    axios
+      .post('administrator/newConv.php', {
+        cat: 'ao',
+        inputArray: submitData,
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
@@ -97,12 +111,16 @@ const Id = (props) => {
           <BackIcon />
         </TouchableOpacity>
         <Text style={{fontSize: 18, fontWeight: '700'}}>
-          Inaccessible Database
+        Database Not Accessible
         </Text>
         <View></View>
       </View>
       <View style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>
-        <CwlCard heading="Please fill in the details: " inputs={state.inputs} dispatch={dispatch} />
+        <CwlCard
+          heading="Please fill in the details: "
+          inputs={state.inputs}
+          dispatch={dispatch}
+        />
       </View>
       <View
         style={{
@@ -125,10 +143,9 @@ const Id = (props) => {
           }}
           textStyle={{color: '#56bcfc'}}
         />
-        <CustomButton title="SUBMIT" />
+        <CustomButton title="SUBMIT" press={() => submitData(state.inputs)} />
       </View>
     </View>
-    
   );
 };
 

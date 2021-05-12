@@ -47,18 +47,25 @@ const CwlCard = props => {
           renderItem={({item}) => {
             if (item.display === 'singleLine' || item.display === 'multiLine')
               return (
-                <InputField
-                  multiline={item.display === 'multiLine'}
-                  name={item.name}
-                  placeholder={item.config.placeholder}
-                  type={item.config.type}
-                  change={text =>
-                    changeInput(props.dispatch, {
-                      targetInput: item.name,
-                      value: text,
-                    })
-                  }
-                />
+                <View
+                  style={{marginTop: item.display === 'singleLine' ? -16 : 0}}>
+                  <InputField
+                    setFocus={props.setFocus}
+                    setBlur={props.setBlur}
+                    dispatch={props.dispatch}
+                    id={item.id}
+                    multiline={item.display === 'multiLine'}
+                    name={item.name}
+                    placeholder={item.config.placeholder}
+                    type={item.config.type}
+                    change={text =>
+                      changeInput(props.dispatch, {
+                        targetInput: item.name,
+                        value: text,
+                      })
+                    }
+                  />
+                </View>
               );
           }}></FlatList>
       </View>

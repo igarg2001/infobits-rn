@@ -1,4 +1,4 @@
-import {AUTH, AUTH_FAIL, AUTH_SUCCESS, SET_AUTH} from '../actionTypes';
+import {AUTH, AUTH_FAIL, AUTH_SUCCESS, LOGOUT, SET_AUTH} from '../actionTypes';
 import axios from '../../apis/axiosInstance';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -33,12 +33,14 @@ export const login = (userId, password, navigate) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post(`login.php?username=${userId}&password=${password}`)
+      .post(`apis/login.php?username=${userId}&password=${password}`)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         const obj = {
           userId: userId,
           password: password,
+          email: res.data.data.email,
+          name: res.data.data.name,
         };
         AsyncStorage.setItem('userDetails', JSON.stringify(obj))
           .then(res => {
@@ -50,5 +52,19 @@ export const login = (userId, password, navigate) => {
       .catch(err => {
         console.log(err);
       });
+  };
+};
+
+const logoutAction = () => {
+  return {
+    type: LOGOUT,
+  };
+};
+
+export const logout = () => {
+  return dispatch => {
+    AsyncStorage.removeItem('userDetails')
+      .then(res => dispatch(logoutAction()))
+      .catch(err => console.log(err));
   };
 };

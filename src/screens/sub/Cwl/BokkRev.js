@@ -4,6 +4,7 @@ import CwlCard from '../../../components/CwlCard';
 import BackIcon from '../../../assets/svg/ArrowLeft';
 import {formValidators} from '../../../utils/formValidators';
 import CustomButton from '../../../components/customButton';
+import axios from '../../../apis/axiosInstance';
 
 const BokkRev = props => {
   const reducer = (state, action) => {
@@ -90,13 +91,26 @@ const BokkRev = props => {
     formIsValid: false,
   });
 
+  const submitData = data => {
+    let submitData = [];
+    for (let i of data) submitData.push(i.value);
+    console.log(submitData);
+    axios
+      .post('administrator/newConv.php', {
+        cat: 'breview',
+        inputArray: submitData,
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <BackIcon />
         </TouchableOpacity>
-        <Text style={{fontSize: 18, fontWeight: '700'}}>Book Review</Text>
+        <Text style={{fontSize: 18, fontWeight: '700'}}>I Just Read This Book</Text>
         <View></View>
       </View>
       <View style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>
@@ -127,7 +141,7 @@ const BokkRev = props => {
           }}
           textStyle={{color: '#56bcfc'}}
         />
-        <CustomButton title="SUBMIT" />
+        <CustomButton title="SUBMIT" press={() => submitData(state.inputs)} />
       </View>
     </View>
   );

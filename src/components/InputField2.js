@@ -63,8 +63,18 @@ const InputField2 = props => {
           autoCorrect={false}
           value={props.value}
           onChangeText={props.change}
-          onFocus={() => setFocus(true)}
-          onBlur={() => setFocus(false)}
+          onFocus={() => {
+            setFocus(true);
+            props.setFocus
+              ? props.setFocus(props.dispatch, {targetInput: props.id})
+              : null;
+          }}
+          onBlur={() => {
+            setFocus(false);
+            props.setBlur
+              ? props.setBlur(props.dispatch, {targetInput: props.id})
+              : null;
+          }}
           keyboardType={keyboardType}
           secureTextEntry={
             props.type === 'password' && !showPasswordState ? true : false
@@ -90,8 +100,8 @@ const styles = StyleSheet.create({
   },
   placeholderStyles: {
     flex: 1,
-    fontSize: 18,
-    marginHorizontal: 28,
+    fontSize: 14,
+    marginHorizontal: 10,
   },
   touchStyle: {
     // justifyContent: 'center',

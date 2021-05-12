@@ -1,9 +1,16 @@
 import React, {useReducer, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import CwlCard from '../../../components/CwlCard';
 import BackIcon from '../../../assets/svg/ArrowLeft';
 import {formValidators} from '../../../utils/formValidators';
 import CustomButton from '../../../components/customButton';
+import axios from '../../../apis/axiosInstance';
 
 const Si = props => {
   const reducer = (state, action) => {
@@ -61,29 +68,58 @@ const Si = props => {
   const radioElements = [
     {
       name: 'Text Book Counter',
-      id: 'textbookcounter',
+      id: 'Text Book Counter',
     },
     {
       name: 'Help Desk',
-      id: 'helpdesk',
+      id: 'Help Desk',
     },
     {
-      name: 'Photocopy',
-      id: 'photocopy',
+      name: 'Photocopy Service',
+      id: 'Photocopy Service',
     },
     {
-      name: 'Issue and Returns',
-      id: 'issuenreturns',
+      name: 'Brainstorm Room',
+      id: 'Brainstorm Room',
     },
     {
-      name: 'Reference Services',
-      id: 'referenceservices',
+      name: 'Group Discussion Room',
+      id: 'Group Discussion Room',
     },
     {
       name: 'Gate Keeping',
-      id: 'gatekeeping',
+      id: 'Gate Keeping',
+    },
+    {
+      name: 'Research Zone',
+      id: 'Research Zone',
+    },
+    {
+      name: 'Innovation Zone and MakerSpace',
+      id: 'Innovation Zone and MakerSpace',
+    },
+    {
+      name: 'Information Counter',
+      id: 'Information Counter',
+    },
+    {
+      name: 'Reference Service',
+      id: 'Reference Service',
     },
   ];
+
+  const submitData = (radio, data) => {
+    let submitArr = [];
+    submitArr.push(radio);
+    for (let i of data) submitArr.push(i.value);
+    axios
+      .post('administrator/newConv.php', {
+        cat: 'grieve',
+        inputArray: submitArr,
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -94,7 +130,7 @@ const Si = props => {
         <Text style={{fontSize: 18, fontWeight: '700'}}>Service Issues</Text>
         <View></View>
       </View>
-      <View style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>
+      <ScrollView style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>
         <CwlCard
           heading="Please fill in the details: "
           radios={radioElements}
@@ -103,7 +139,7 @@ const Si = props => {
           inputs={state.inputs}
           dispatch={dispatch}
         />
-      </View>
+      </ScrollView>
       <View
         style={{
           position: 'absolute',
@@ -125,7 +161,10 @@ const Si = props => {
           }}
           textStyle={{color: '#56bcfc'}}
         />
-        <CustomButton title="SUBMIT" />
+        <CustomButton
+          title="SUBMIT"
+          press={() => submitData(radio, state.inputs)}
+        />
       </View>
     </View>
   );

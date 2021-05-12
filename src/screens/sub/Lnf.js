@@ -19,12 +19,14 @@ const Lnf = props => {
   const user = props.resUser;
   const username = user.userId;
   const password = user.password;
+  console.log(username, password)
   const [loaded, setLoaded] = useState(false);
   const [items, setItems] = useState([]);
   useEffect(() => {
     axios
-      .get(`get_all_items.php?username=${username}&password=${password}`)
+      .get(`apis/get_all_items.php?username=${username}&password=${password}`)
       .then(res => {
+        console.log(res.data)
         setItems(objtoarr(res.data.data).reverse());
         setLoaded(true);
       })

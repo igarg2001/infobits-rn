@@ -13,10 +13,15 @@ const Routes = props => {
     .then(res => {
       token = res ? JSON.parse(res) : null;
       props.auth(!!token, token);
-      setTimeout(() => setLoaded(true), 1000);
+      // setTimeout(() => setLoaded(true), 1000);
+      setLoaded(true);
     })
     .catch(err => console.log(err));
-  const navCont = props.isAuth ? <SecureRoutes /> : <LoginRoutes />;
+  const navCont = props.isAuth ? (
+    <SecureRoutes />
+  ) : (
+    <LoginRoutes />
+  );
   return navCont;
 };
 

@@ -6,14 +6,19 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+//import {act} from 'react-test-renderer';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Eye from '../assets/svg/eye';
 import EyeCross from '../assets/svg/eye-close';
+import PencilIcon from '../assets/svg/Pencil';
 
 const InputField = props => {
   let showPassword = null;
   const [showPasswordState, toggleState] = useState(false);
+  const [active, setActive] = useState(false);
+  console.log(active);
+
   if (props.type === 'password') {
     showPassword = showPasswordState ? (
       <Eye color="#000000" />
@@ -21,7 +26,7 @@ const InputField = props => {
       <EyeCross color="#000000" />
     );
   }
-  console.log(showPassword);
+  const pencilIcon = props.editIcon ? <PencilIcon /> : null;
   let errorView = null;
   if (props.touched && !props.valid) {
     errorView = (
@@ -53,7 +58,12 @@ const InputField = props => {
   return (
     <View>
       {/* <Text>{props.name}</Text> */}
-      <View style={styles.viewStyles}>
+      <View
+        style={{
+          ...styles.viewStyles,
+          borderColor: active && !props.disabled ? '#339cde' : 'transparent',
+          elevation: props.modalOpen ? 0 : 2,
+        }}>
         <TextInput
           style={styles.placeholderStyles}
           placeholder={props.placeholder}
@@ -62,14 +72,26 @@ const InputField = props => {
           value={props.value}
           onChangeText={props.change}
           keyboardType={keyboardType}
+          onFocus={() => setActive(true)}
+          onBlur={() => setActive(false)}
+          editable={!props.disabled}
+          selectTextOnFocus={!props.disabled}
           secureTextEntry={
             props.type === 'password' && !showPasswordState ? true : false
           }
         />
         <TouchableOpacity
           style={styles.touchStyle}
-          onPress={() => toggleState(!showPasswordState)}>
+          onPress={() => {
+            if (props.type === 'password') toggleState(!showPasswordState);
+            if (props.editIcon) {
+              console.log('hi');
+              props.onEdit();
+              setActive(true);
+            }
+          }}>
           {showPassword}
+          {pencilIcon}
         </TouchableOpacity>
       </View>
       {errorView}
@@ -83,10 +105,11 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     borderWidth: 2,
-    borderColor: '#339cde',
     borderRadius: 10,
     marginTop: 16,
-    backgroundColor: "#f9f8fd"
+    backgroundColor: '#f9f8fd',
+    borderColor: 'transparent',
+    //  elevation: 2,
   },
   iconStyles: {
     justifyContent: 'center',
@@ -100,6 +123,11 @@ const styles = StyleSheet.create({
   touchStyle: {
     // justifyContent: 'center',
     // marginHorizontal: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: '3%',
   },
   errorTextStyle: {
     color: 'red',

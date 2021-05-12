@@ -12,34 +12,46 @@ import {objtoarr} from '../../utils/objtoarr';
 import BackIcon from '../../assets/svg/ArrowLeft';
 import SearchIcon from '../../assets/svg/Search';
 import NewsItem from '../../assets/svg/NewsItem';
+import {connect} from 'react-redux';
 
 const DailyNews = props => {
   const [loaded, setLoaded] = useState(false);
-  const [newsItems, setNewsItems] = useState([{
-    date: "12/12/2020",
-    title: "This is a news heading",
-    newspaper: "Times of India",
-  }]);
+  const [newsItems, setNewsItems] = useState([
+    {
+      date: '12/12/2020',
+      title: 'This is a news heading',
+      newspaper: 'Times of India',
+      url: 'https://m.timesofindia.com',
+    },
+  ]);
   console.log(newsItems[0]);
   useEffect(() => {
     axios
       .get(
-        'daily_news.php?username=F20190034P&password=ishangarg&action=update',
+        `apis/daily_news.php?username=${props.resUser.userId}&password=${props.resUser.password}&action=update`,
       )
       .then(res => {
         console.log('hi');
         const obj = res.data.data;
         console.log(res.data);
-        //setNewsItems(objtoarr(obj));
-        //setLoaded(true);
+        setNewsItems(objtoarr(obj));
+        setLoaded(true);
       })
       .catch(err => console.log(err));
   }, []);
   let newsList = null;
   if (!loaded)
-    newsList = <Text style={{marginTop: '32%', fontSize: 18, fontWeight: "600"}}>Fetching news...</Text>;
+    newsList = (
+      <Text style={{marginTop: '32%', fontSize: 18, fontWeight: '600'}}>
+        Fetching news...
+      </Text>
+    );
   if (loaded && newsItems.length === 0)
-    newsList = <Text style={{marginTop: '32%',fontSize: 18, fontWeight: "600"}}>No headlines found</Text>;
+    newsList = (
+      <Text style={{marginTop: '32%', fontSize: 18, fontWeight: '600'}}>
+        No headlines found
+      </Text>
+    );
   if (loaded && newsItems.length !== 0)
     newsList = (
       <FlatList
@@ -73,9 +85,7 @@ const DailyNews = props => {
             <SearchIcon color="#000" fill="#000" />
           </TouchableOpacity>
         </View>
-        <View style={styles.listCont}>
-          {newsList}
-        </View>
+        <View style={styles.listCont}>{newsList}</View>
       </ScrollView>
     </>
   );
@@ -104,4 +114,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DailyNews;
+const mapStatetoProps = state => {
+  return {
+    resUser: state.auth.resUser,
+  };
+};
+
+const mapDispatchtoProps = dispatch => {
+  return {};
+};
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(DailyNews);

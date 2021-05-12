@@ -33,39 +33,131 @@ const Dnf = props => {
     }
   };
 
-  const [radio, setRadio] = useState('Journal');
+  const [radio, setRadio] = useState('Journals');
+  let myInputs =
+    radio === 'Books'
+      ? [
+          {
+            name: 'Title',
+            id: 'Input #1',
+            config: {
+              type: 'text',
+              placeholder: 'Title',
+              //icon: padlockIcon,
+            },
+            value: '',
+            validation: {
+              required: true,
+            },
+            errorMsg: '',
+            valid: false,
+            touched: false,
+            display: 'singleLine',
+          },
+          {
+            name: 'Author',
+            id: 'Input #2',
+            config: {
+              type: 'text',
+              placeholder: 'Author',
+              //icon: padlockIcon,
+            },
+            value: '',
+            validation: {
+              required: true,
+            },
+            errorMsg: '',
+            valid: false,
+            touched: false,
+            display: 'singleLine',
+          },
+          {
+            name: 'Accession No. ',
+            id: 'Input #1',
+            config: {
+              type: 'text',
+              placeholder: 'Accession No. ',
+              //icon: padlockIcon,
+            },
+            value: '',
+            validation: {
+              required: true,
+            },
+            errorMsg: '',
+            valid: false,
+            touched: false,
+            display: 'singleLine',
+          },
+        ]
+      : [
+          {
+            name: 'Journal Name',
+            id: 'Input #1',
+            config: {
+              type: 'text',
+              placeholder: 'Journal Name',
+              //icon: padlockIcon,
+            },
+            value: '',
+            validation: {
+              required: true,
+            },
+            errorMsg: '',
+            valid: false,
+            touched: false,
+            display: 'singleLine',
+          },
+          {
+            name: 'Month',
+            id: 'Input #2',
+            config: {
+              type: 'text',
+              placeholder: 'Month',
+              //icon: padlockIcon,
+            },
+            value: '',
+            validation: {
+              required: true,
+            },
+            errorMsg: '',
+            valid: false,
+            touched: false,
+            display: 'singleLine',
+          },
+          {
+            name: 'Year',
+            id: 'Input #3',
+            config: {
+              type: 'text',
+              placeholder: 'Year',
+              //icon: padlockIcon,
+            },
+            value: '',
+            validation: {
+              required: true,
+            },
+            errorMsg: '',
+            valid: false,
+            touched: false,
+            display: 'singleLine',
+          },
+        ];
 
-  const [state, dispatch] = useReducer(reducer, {
-    inputs: [
-      {
-        name: 'Journal/Book',
-        id: 'Input #1',
-        config: {
-          type: 'text',
-          placeholder: radio,
-          //icon: padlockIcon,
-        },
-        value: '',
-        validation: {
-          required: true,
-        },
-        errorMsg: '',
-        valid: false,
-        touched: false,
-        display: 'singleLine',
-      },
-    ],
+  console.log(myInputs);
+
+  const [state1, dispatch] = useReducer(reducer, {
+    inputs: myInputs,
     formIsValid: false,
   });
 
   const radioElements = [
     {
-      name: 'Journal',
-      id: 'journal',
+      name: 'Journals',
+      id: 'Journals',
     },
     {
-      name: 'Book',
-      id: 'book',
+      name: 'Books',
+      id: 'Books',
     },
   ];
 
@@ -75,7 +167,7 @@ const Dnf = props => {
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <BackIcon />
         </TouchableOpacity>
-        <Text style={{fontSize: 18, fontWeight: '700'}}>Service Issues</Text>
+        <Text style={{fontSize: 18, fontWeight: '700'}}>Document Not Found On Shelf</Text>
         <View></View>
       </View>
       <View style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>
@@ -84,7 +176,7 @@ const Dnf = props => {
           radios={radioElements}
           currentRadio={radio}
           setRadio={setRadio}
-          inputs={state.inputs}
+          inputs={state1.inputs}
           dispatch={dispatch}
         />
       </View>

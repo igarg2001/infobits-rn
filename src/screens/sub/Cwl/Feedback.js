@@ -79,7 +79,7 @@ const Feedback = props => {
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <BackIcon />
         </TouchableOpacity>
-        <Text style={{fontSize: 18, fontWeight: '700'}}>Service Issues</Text>
+        <Text style={{fontSize: 18, fontWeight: '700'}}>Feedback Form</Text>
         <View></View>
       </View>
       <View style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>

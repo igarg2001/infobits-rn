@@ -5,11 +5,12 @@ import DrawerRoutes from './DrawerRoutes';
 
 const SecureNavigator = createStackNavigator();
 const SecureRoutes = props => {
+  console.log(props.resUser, '----------')
   return (
     <NavigationContainer>
       <SecureNavigator.Navigator screenOptions={{headerShown: false}}>
         <SecureNavigator.Screen name="SecureScreens">
-          {() => <DrawerRoutes />}
+          {() => <DrawerRoutes {...props}/>}
         </SecureNavigator.Screen>
       </SecureNavigator.Navigator>
     </NavigationContainer>
