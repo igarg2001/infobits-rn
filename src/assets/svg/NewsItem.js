@@ -1,5 +1,5 @@
 import React from 'react';
-import {Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Linking, StyleSheet, Text, Pressable, View} from 'react-native';
 
 const NewsItem = props => {
   const openUrl = url => {
@@ -15,9 +15,9 @@ const NewsItem = props => {
       <Text style={styles.date}>{props.date}</Text>
       <Text style={styles.title}>{props.title}</Text>
       <Text style={styles.date}>{props.newspaper}</Text>
-      <TouchableOpacity onPress={() => openUrl(props.url)}>
+      <Pressable android_ripple={{color: '#bcbcbc'}} onPress={() => openUrl(props.url)}>
         <Text style={styles.readMore}>Read More</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

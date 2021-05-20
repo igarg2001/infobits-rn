@@ -1,5 +1,5 @@
 import React, {useReducer} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import CwlCard from '../../../components/CwlCard';
 import BackIcon from '../../../assets/svg/ArrowLeft';
 import {formValidators} from '../../../utils/formValidators';
@@ -107,10 +107,14 @@ const BokkRev = props => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
-        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
+          onPress={() => props.navigation.goBack()}>
           <BackIcon />
-        </TouchableOpacity>
-        <Text style={{fontSize: 18, fontWeight: '700'}}>I Just Read This Book</Text>
+        </Pressable>
+        <Text style={{fontSize: 18, fontWeight: '700'}}>
+          I Just Read This Book
+        </Text>
         <View></View>
       </View>
       <View style={{marginTop: '6%', width: '96%', marginLeft: '2%'}}>

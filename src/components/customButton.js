@@ -1,15 +1,18 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, Pressable, StyleSheet} from 'react-native';
 
 const CustomButton = props => {
   return (
-    <TouchableOpacity
+    <Pressable
+      android_ripple={{color: '#bcbcbc'}}
       disabled={props.disabled}
       onPress={props.press}
       style={{
         ...styles.wrapper,
         ...props.wrapperStyle,
-        backgroundColor: props.disabled ? "rgba(86,188,252, 0.5)" : "rgba(86,188,252, 1)"
+        backgroundColor: props.disabled
+          ? 'rgba(86,188,252, 0.5)'
+          : 'rgba(86,188,252, 1)',
       }}>
       <View
         style={{
@@ -18,7 +21,7 @@ const CustomButton = props => {
         }}>
         <Text style={{...styles.text, ...props.textStyle}}>{props.title}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

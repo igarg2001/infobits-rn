@@ -1,12 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import AvatarIcon from '../src/assets/svg/Avatar';
 
 const DrawerContent = props => {
@@ -26,23 +21,25 @@ const DrawerContent = props => {
     });
   }, []);
 
-  console.log(AvatarIcon)
+  console.log(AvatarIcon);
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1}}>
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
-        <TouchableOpacity
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
           style={style.profileWrapper}
           onPress={() => props.navigation.navigate('Profile')}>
           <View style={style.avatar}>
-            <View style={{position: "absolute", top: 0}}><AvatarIcon width="100%" /></View>
-            
+            <View style={{position: 'absolute', top: 0}}>
+              <AvatarIcon width="100%" />
+            </View>
           </View>
           <View style={style.details}>
             <Text style={{fontSize: 22, fontWeight: '500'}}>{user.name}</Text>
             <Text>{user.email}</Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
         <DrawerItem
           onPress={() => props.navigation.navigate('News')}
           label="Daily News"
@@ -154,7 +151,7 @@ const style = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 52,
-    backgroundColor: "#f2f2f2"
+    backgroundColor: '#f2f2f2',
   },
   drawerIcon: {
     width: 32,

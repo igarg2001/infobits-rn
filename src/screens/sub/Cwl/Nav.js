@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   FlatList,
 } from 'react-native';
@@ -47,9 +47,11 @@ const Nav = props => {
       <View style={styles.wrapper}>
         <View style={styles.lightHeader}>
           <View style={styles.headerContent}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
+              onPress={() => props.navigation.goBack()}>
               <Hamburger />
-            </TouchableOpacity>
+            </Pressable>
             <Text style={{fontWeight: '700', fontSize: 18}}>
               Connect With Library
             </Text>

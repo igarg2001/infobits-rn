@@ -1,11 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ScrollView, StyleSheet, Text, Pressable, View} from 'react-native';
 import {connect} from 'react-redux';
 import {logout} from '../../actions/actionCreators/auth';
 import BackIcon from '../../assets/svg/ArrowLeft';
@@ -192,7 +186,7 @@ const Profile = props => {
       )
       .then(res => {
         console.log(res.data);
-        
+
         setModal(old => ({...old, value: false}));
       })
       .catch(err => {
@@ -232,17 +226,21 @@ const Profile = props => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
-        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
+          onPress={() => props.navigation.goBack()}>
           <BackIcon />
-        </TouchableOpacity>
+        </Pressable>
         <Text style={{fontSize: 18, fontWeight: '700', textAlign: 'center'}}>
           Profile
         </Text>
-        <TouchableOpacity onPress={() => props.logout()}>
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
+          onPress={() => props.logout()}>
           <Text style={{fontSize: 16, color: '#339cde', fontWeight: '500'}}>
             Logout
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <View style={styles.avatar}>
@@ -270,7 +268,8 @@ const Profile = props => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <TouchableOpacity
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
           style={{
             width: 34,
             height: 34,
@@ -285,7 +284,7 @@ const Profile = props => {
             //elevation: 2,
           }}>
           <PencilIcon />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View style={styles.details}>
         <View style={styles.detail}>

@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Button,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   FlatList,
 } from 'react-native';
@@ -129,10 +129,10 @@ const LoginScreen = props => {
             marginRight: '5%',
             marginTop: '1%',
           }}>
-          <TouchableOpacity
+          <Pressable
             onPress={() => props.navigation.navigate('ForgotPass')}>
             <Text style={{color: '#339cde'}}>Forgot Password?</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View
           style={{
