@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -15,14 +15,25 @@ import CustomButton from '../../components/customButton';
 import InputField from '../../components/InputField';
 import {formValidators} from '../../utils/formValidators';
 //import InputField2 from '../../components/InputField2';
-import {Modal} from 'react-native-paper';
+import {Modal, Avatar} from 'react-native-paper';
+import {getInitials} from '../../utils/getInitials';
+import axios from '../../apis/axiosInstance';
+import LoadingModal from '../../components/LoadingModal';
 
 const Profile = props => {
-  const updateMobile = () => {
-    console.log('mobile updated');
-    setMobileEdit(false);
-  };
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState({
+    value: false,
+    message: '',
+  });
+
+  const [modal2, setModal2] = useState(false);
+
+  const [userDetails, setUserDetails] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+  });
+
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -59,7 +70,10 @@ const Profile = props => {
           placeholder: '',
           //icon: userIcon,
         },
-        value: props.resUser.email ? props.resUser.email : 'no mobile number',
+        value:
+          !userDetails.mobile || userDetails.mobile === ''
+            ? 'no mobile number'
+            : userDetails.mobile,
         validation: {
           required: true,
           isMobile: true,
@@ -133,12 +147,88 @@ const Profile = props => {
       payload: payload,
     });
   };
+  //console.log(getInitials(userDetails.name));
   console.log(props.resUser);
   const [mobileEdit, setMobileEdit] = useState(false);
   const onEdit = () => {
     console.log('hey');
     setMobileEdit(true);
   };
+  const updateMobile = value => {
+    setModal({
+      value: true,
+      message: 'Updating mobile',
+    });
+    axios
+      .post(
+        `apis/user_settings.php?username=${props.resUser.userId}&password=${props.resUser.password}&new_value=${value}&change_type=1`,
+      )
+      .then(res => {
+        console.log(res.data);
+        changeInput(dispatch, {
+          targetInput: state1.inputs[0].name,
+          value: value,
+        });
+        setModal(old => ({...old, value: false}));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    setMobileEdit(false);
+  };
+  const [validRequest, checkValidRequest] = useState(true);
+  const changePassword = (oldP, newP, confirmP) => {
+    if (newP !== confirmP) {
+      checkValidRequest(false);
+      return;
+    }
+    setModal({
+      value: true,
+      message: 'Changing password',
+    });
+    axios
+      .post(
+        `apis/user_settings.php?username=${props.resUser.userId}&password=${oldP}&new_value=${newP}&change_type=0`,
+      )
+      .then(res => {
+        console.log(res.data);
+        
+        setModal(old => ({...old, value: false}));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    setModal({
+      value: true,
+      message: 'Fetching user details',
+    });
+    axios
+      .get(
+        'apis/user_settings.php?username=' +
+          props.resUser.userId +
+          '&password=' +
+          props.resUser.password,
+      )
+      .then(res => {
+        console.log(res.data.mobile_number);
+        setUserDetails({
+          name: res.data.name,
+          email: res.data.email_id,
+          mobile: res.data.mobile_number,
+          //loading: false,
+        });
+        setModal(old => ({...old, value: false}));
+        changeInput(dispatch, {
+          targetInput: state1.inputs[0].name,
+          value: res.data.mobile_number,
+        });
+      })
+      .catch(err => {
+        setModal(old => ({...old, value: false}));
+      });
+  }, []);
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
@@ -154,8 +244,24 @@ const Profile = props => {
           </Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.avatar}>
-        <AvatarIcon width="100%" />
+        {/* <AvatarIcon width="100%" /> */}
+        {/* <Avatar.Text
+          size="100%"
+          label={getInitials(props.resUser.name)}
+          color="#339cde"
+        /> */}
+        <Avatar.Text
+          label={
+            !userDetails.name || userDetails.name === ''
+              ? ''
+              : getInitials(userDetails.name)
+          }
+          color="white"
+          size={128}
+          style={{backgroundColor: '#56bcfc'}}
+        />
       </View>
       <View
         style={{
@@ -185,7 +291,11 @@ const Profile = props => {
         <View style={styles.detail}>
           <Text style={styles.detailName}>NAME</Text>
           <View style={{marginTop: '-2%'}}>
-            <InputField disabled value={props.resUser.name} modalOpen={modal} />
+            <InputField
+              disabled
+              value={userDetails.name}
+              modalOpen={modal2 || modal.value}
+            />
           </View>
         </View>
         <View style={{...styles.detail, marginTop: '4%'}}>
@@ -193,8 +303,8 @@ const Profile = props => {
           <View style={{marginTop: '-2%'}}>
             <InputField
               disabled
-              value={props.resUser.email}
-              modalOpen={modal}
+              value={userDetails.email}
+              modalOpen={modal2 || modal.value}
             />
           </View>
         </View>
@@ -202,7 +312,7 @@ const Profile = props => {
           <Text style={styles.detailName}>MOBILE</Text>
           <View style={{marginTop: '-2%'}}>
             <InputField
-              modalOpen={modal}
+              modalOpen={modal.value || modal2}
               disabled={!mobileEdit}
               value={state1.inputs[0].value}
               type={state1.inputs[0].config.type}
@@ -224,16 +334,16 @@ const Profile = props => {
           press={() => {
             console.log('hi2');
             if (mobileEdit) {
-              updateMobile();
+              updateMobile(state1.inputs[0].value);
             } else {
-              setModal(true);
+              setModal2(true);
             }
           }}
         />
       </View>
       <Modal
         dismissable
-        onDismiss={() => setModal(false)}
+        onDismiss={() => setModal2(false)}
         contentContainerStyle={{
           height: '75%',
           backgroundColor: 'white',
@@ -242,7 +352,7 @@ const Profile = props => {
           marginLeft: '5%',
           borderRadius: 5,
         }}
-        visible={modal}>
+        visible={modal2}>
         <ScrollView
           style={{
             height: '90%',
@@ -301,6 +411,16 @@ const Profile = props => {
               </View>
             </View>
           </View>
+          <Text
+            style={{
+              fontSize: 16,
+              color: 'red',
+              marginTop: '2%',
+              marginLeft: '5%',
+              display: validRequest ? 'none' : 'flex',
+            }}>
+            Passwords do not match!
+          </Text>
           <View
             style={{
               width: '95%',
@@ -310,10 +430,10 @@ const Profile = props => {
               alignItems: 'center',
               marginLeft: '2.5%',
               marginTop: '10%',
-              marginBottom: "5%"
+              marginBottom: '5%',
             }}>
             <CustomButton
-              press={() => setModal(false)}
+              press={() => setModal2(false)}
               title="CANCEL"
               wrapperStyle={{
                 backgroundColor: 'white',
@@ -324,11 +444,18 @@ const Profile = props => {
             />
             <CustomButton
               title="SUBMIT"
-              press={() => submitData(state.inputs)}
+              press={() =>
+                changePassword(
+                  state2.inputs[0].value,
+                  state2.inputs[1].value,
+                  state2.inputs[2].value,
+                )
+              }
             />
           </View>
         </ScrollView>
       </Modal>
+      <LoadingModal visible={modal.value} message={modal.message} />
     </View>
   );
 };
@@ -362,13 +489,10 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
   },
   avatar: {
-    width: '40%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: '30%',
-    height: '20%',
     marginTop: '10%',
   },
   details: {

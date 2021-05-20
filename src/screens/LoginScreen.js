@@ -15,9 +15,9 @@ import Frame from '../assets/svg/Frame';
 import InputField from '../components/InputField';
 import {formValidators} from '../utils/formValidators';
 import CustomButton from '../components/customButton';
+import LoadingModal from '../components/LoadingModal';
 
 const LoginScreen = props => {
-  
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -163,6 +163,7 @@ const LoginScreen = props => {
             press={() => props.navigation.navigate('SignUp')}
           /> */}
         </View>
+        <LoadingModal message="Logging You In" visible={props.loading} />
       </View>
     </>
   );

@@ -17,9 +17,10 @@ export const authSuccess = obj => {
   };
 };
 
-export const authFailed = () => {
+export const authFailed = message => {
   return {
     type: AUTH_FAIL,
+    message: message,
   };
 };
 export const auth = (value, user) => {
@@ -36,21 +37,27 @@ export const login = (userId, password, navigate) => {
       .post(`apis/login.php?username=${userId}&password=${password}`)
       .then(res => {
         console.log(res.data);
-        const obj = {
-          userId: userId,
-          password: password,
-          email: res.data.data.email,
-          name: res.data.data.name,
-        };
-        AsyncStorage.setItem('userDetails', JSON.stringify(obj))
-          .then(res => {
-            //navigate
-            dispatch(authSuccess(obj));
-          })
-          .catch(err => console.log(err));
+        if (res.data.success == 1 && res.data.data.length !== 0) {
+          const obj = {
+            userId: userId,
+            password: password,
+            email: res.data.data.email,
+            name: res.data.data.name,
+          };
+          AsyncStorage.setItem('userDetails', JSON.stringify(obj))
+            .then(res => {
+              //navigate
+              dispatch(authSuccess(obj));
+            })
+            .catch(err => console.log(err));
+        } else {
+          console.log(res.data.err_message);
+          dispatch(authFailed(res.data.err_message));
+        }
       })
       .catch(err => {
         console.log(err);
+        dispatch(authFailed('An error occurred while logging you in!'));
       });
   };
 };

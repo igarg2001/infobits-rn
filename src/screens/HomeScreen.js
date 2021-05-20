@@ -54,7 +54,7 @@ const HomeScreen = props => {
             <View style={{display: 'flex', flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
               <Image
                 source={require('../assets/images/infobits.png')}
-                style={{height: 72, width: 72}}
+                style={{height: 56, width: 56}}
               />
               
             </View>
@@ -72,7 +72,7 @@ const HomeScreen = props => {
               <Profile />
             </TouchableOpacity>
           </View>
-          <View style={{marginTop: '12.5%', marginHorizontal: '8%'}}>
+          <View style={{marginTop: '8%', marginHorizontal: '8%'}}>
             <Text style={{textAlign: 'right'}}>
               “Quote is a good way to fill spaces that can’t be used otherwise”
             </Text>
@@ -93,6 +93,7 @@ const HomeScreen = props => {
                 marginRight: '5%',
                 paddingTop: '4%',
                 paddingLeft: '5%',
+                elevation: 8
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
@@ -109,6 +110,7 @@ const HomeScreen = props => {
                 borderRadius: 6,
                 paddingTop: '4%',
                 paddingLeft: '5%',
+                elevation: 8
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
@@ -134,6 +136,7 @@ const HomeScreen = props => {
                 marginRight: '5%',
                 paddingTop: '4%',
                 paddingLeft: '5%',
+                elevation: 8
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
@@ -150,6 +153,7 @@ const HomeScreen = props => {
                 paddingTop: '4%',
                 paddingLeft: '5%',
                 paddingBottom: '4%',
+                elevation: 8
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
@@ -168,7 +172,7 @@ const HomeScreen = props => {
               textAlign: 'left',
               alignSelf: 'flex-start',
             }}>
-            Notice Board
+            Notifications
           </Text>
           <View style={{flex: 1}}>
             <FlatList
@@ -197,7 +201,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(86, 188, 252)',
     //transform: [{matrix: [-1, 0.04, 0.04, 1, 0, 0, 0, 0, 0]}],
-    height: '33.5%',
+    height: '23.5%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

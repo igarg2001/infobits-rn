@@ -1,10 +1,16 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useState} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import CustomButton from '../components/customButton';
 import InputField from '../components/InputField';
 import {formValidators} from '../utils/formValidators';
+import axios from 'axios';
+import FormData from 'form-data';
+import LoadingModal from '../components/LoadingModal';
+import {Button, Dialog, Portal, Provider} from 'react-native-paper';
 
 const ForgotPasswordScreen = props => {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -35,28 +41,12 @@ const ForgotPasswordScreen = props => {
   const [state, dispatch] = useReducer(reducer, {
     inputs: [
       {
-        name: 'BITS ID/PSRM Number',
+        name: 'BITS Email',
         id: 'Input #1',
         config: {
           type: 'text',
-          placeholder: 'BITS ID/PSRM Number',
+          placeholder: 'BITS Email',
           //icon: userIcon,
-        },
-        value: '',
-        validation: {
-          required: true,
-        },
-        errorMsg: '',
-        valid: false,
-        touched: false,
-      },
-      {
-        name: 'BITS Email ID',
-        id: 'Input #2',
-        config: {
-          type: 'email',
-          placeholder: 'BITS Email ID',
-          //icon: padlockIcon,
         },
         value: '',
         validation: {
@@ -77,6 +67,28 @@ const ForgotPasswordScreen = props => {
     });
   };
 
+  const submitRequest = (email, submit) => {
+    setLoading(true);
+    let data = new FormData();
+    data.append('bemail', email);
+    data.append('submit', 'Reset Password');
+
+    var config = {
+      method: 'post',
+      url: 'http://library.bits-pilani.ac.in/account/forgot.php',
+      headers: {
+        token: 'testToken',
+      },
+      data: data,
+    };
+    axios(config)
+      .then(res => {
+        setLoading(false);
+        setSuccess(true);
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <>
       <View style={styles.wrapper}>
@@ -93,8 +105,10 @@ const ForgotPasswordScreen = props => {
             }}>
             Forgot Password?
           </Text>
-          <Text style={{color: '#8b8b99', textAlign: 'center'}}>
-            Lorem Ipsum Doler Sita Amen is this Latin Ipsum Dolor?
+          <Text
+            style={{color: '#8b8b99', textAlign: 'center', marginTop: '4%'}}>
+            Enter your BITS Email Id below and a new password will be sent to
+            you.
           </Text>
         </View>
         <View style={{width: '90%', marginTop: '16%'}}>
@@ -105,6 +119,9 @@ const ForgotPasswordScreen = props => {
               <InputField
                 name={item.name}
                 placeholder={item.config.placeholder}
+                touched={item.touched}
+                valid={item.valid}
+                errorMsg={'is invalid'}
                 type={item.config.type}
                 change={text =>
                   changeInput(dispatch, {
@@ -115,9 +132,40 @@ const ForgotPasswordScreen = props => {
               />
             )}></FlatList>
         </View>
-        <View style={{position: "absolute", width: "90%", bottom: 0, marginBottom: "5%"}}>
-          <CustomButton wrapperStyle={{width: '100%'}} title="RESET PASSWORD" />
+        <View
+          style={{
+            position: 'absolute',
+            width: '90%',
+            bottom: 0,
+            marginBottom: '5%',
+          }}>
+          <CustomButton
+            wrapperStyle={{width: '100%'}}
+            title="RESET PASSWORD"
+            disabled={!state.formIsValid}
+            press={() => submitRequest(state.inputs[0].value, 'Reset Password')}
+          />
         </View>
+        <LoadingModal message="Sending request" visible={loading} />
+        <Provider>
+          <Portal>
+            <Dialog
+              visible={success}
+              onDismiss={() => setSuccess(false)}
+              style={{
+                paddingVertical: '5%',
+                elevation: 5,
+                borderRadius: 5,
+              }}>
+              <Dialog.Content>
+                <Text>Password has been sent to your BITS Email</Text>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => props.navigation.goBack()}>LOGIN</Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        </Provider>
       </View>
     </>
   );
