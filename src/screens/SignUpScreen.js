@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Button,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   FlatList,
 } from 'react-native';
@@ -128,10 +128,11 @@ const SignUpScreen = props => {
             marginRight: '5%',
             marginTop: '1%',
           }}>
-          <TouchableOpacity
+          <Pressable
+            android_ripple={{color: '#bcbcbc'}}
             onPress={() => props.navigation.navigate('ForgotPass')}>
             <Text style={{color: '#339cde'}}>Forgot Password?</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View
           style={{

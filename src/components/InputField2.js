@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
   TextInput,
   View,
-  TouchableOpacity,
+  Pressable,
   Text,
   StyleSheet,
 } from 'react-native';

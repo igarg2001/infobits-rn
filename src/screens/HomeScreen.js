@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   FlatList,
   Image,
   ScrollView,
@@ -48,17 +48,25 @@ const HomeScreen = props => {
       <View style={styles.wrapper}>
         <View style={styles.lightHeader}>
           <View style={styles.headerContent}>
-            <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
+              onPress={() => props.navigation.toggleDrawer()}>
               <Hamburger />
-            </TouchableOpacity>
-            <View style={{display: 'flex', flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
+            </Pressable>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
               <Image
                 source={require('../assets/images/infobits.png')}
-                style={{height: 72, width: 72}}
+                style={{height: 56, width: 56}}
               />
-              
             </View>
-            <TouchableOpacity
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
               onPress={() => props.navigation.navigate('Profile')}
               style={{
                 width: 32,
@@ -70,9 +78,9 @@ const HomeScreen = props => {
                 alignItems: 'center',
               }}>
               <Profile />
-            </TouchableOpacity>
+            </Pressable>
           </View>
-          <View style={{marginTop: '12.5%', marginHorizontal: '8%'}}>
+          <View style={{marginTop: '8%', marginHorizontal: '8%'}}>
             <Text style={{textAlign: 'right'}}>
               “Quote is a good way to fill spaces that can’t be used otherwise”
             </Text>
@@ -83,7 +91,8 @@ const HomeScreen = props => {
         </View>
         <View style={{marginTop: '8%', width: '90%'}}>
           <View style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-            <TouchableOpacity
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
               onPress={() => props.navigation.navigate('Spaces')}
               style={{
                 height: 135,
@@ -93,14 +102,16 @@ const HomeScreen = props => {
                 marginRight: '5%',
                 paddingTop: '4%',
                 paddingLeft: '5%',
+                elevation: 8,
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
                 Library Spaces
               </Text>
               <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
               onPress={() => props.navigation.navigate('Resources')}
               style={{
                 height: 135,
@@ -109,13 +120,14 @@ const HomeScreen = props => {
                 borderRadius: 6,
                 paddingTop: '4%',
                 paddingLeft: '5%',
+                elevation: 8,
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
                 Library Resources
               </Text>
               <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
           <View
             style={{
@@ -124,7 +136,8 @@ const HomeScreen = props => {
               width: '100%',
               marginTop: '4%',
             }}>
-            <TouchableOpacity
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
               onPress={() => props.navigation.navigate('Services')}
               style={{
                 height: 135,
@@ -134,14 +147,16 @@ const HomeScreen = props => {
                 marginRight: '5%',
                 paddingTop: '4%',
                 paddingLeft: '5%',
+                elevation: 8,
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
                 Library Services
               </Text>
               <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
               style={{
                 height: 135,
                 width: '47.5%',
@@ -150,13 +165,14 @@ const HomeScreen = props => {
                 paddingTop: '4%',
                 paddingLeft: '5%',
                 paddingBottom: '4%',
+                elevation: 8,
               }}>
               <Image source={require('../assets/images/spaces.png')} />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
                 Shibboleth Remote Access
               </Text>
               <Text style={{fontSize: 12, color: '#818181'}}>About here</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
         <ScrollView
@@ -168,7 +184,7 @@ const HomeScreen = props => {
               textAlign: 'left',
               alignSelf: 'flex-start',
             }}>
-            Notice Board
+            Notifications
           </Text>
           <View style={{flex: 1}}>
             <FlatList
@@ -197,7 +213,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(86, 188, 252)',
     //transform: [{matrix: [-1, 0.04, 0.04, 1, 0, 0, 0, 0, 0]}],
-    height: '33.5%',
+    height: '23.5%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

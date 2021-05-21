@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   FlatList,
 } from 'react-native';
@@ -14,12 +14,12 @@ const Services = props => {
     {
       title: 'Connect With Library',
       about: 'Provide book recommendations maybe in two lines',
-      press: () => props.navigation.navigate("cnl")
+      press: () => props.navigation.navigate('cnl'),
     },
     {
       title: 'Daily News',
       about: 'Provide book recommendations maybe in two lines',
-      press: () => props.navigation.navigate("News")
+      press: () => props.navigation.navigate('News'),
     },
     {
       title: 'Periodical Finder',
@@ -39,9 +39,11 @@ const Services = props => {
       <View style={styles.wrapper}>
         <View style={styles.lightHeader}>
           <View style={styles.headerContent}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <Pressable
+              android_ripple={{color: '#bcbcbc'}}
+              onPress={() => props.navigation.goBack()}>
               <Hamburger />
-            </TouchableOpacity>
+            </Pressable>
             <Text style={{fontWeight: '700', fontSize: 18}}>
               Library Services
             </Text>
@@ -53,7 +55,11 @@ const Services = props => {
           data={items}
           renderItem={({item}) => (
             <View style={{width: '90%', display: 'flex', alignItems: 'center'}}>
-              <NavCard title={item.title} about={item.about} press={item.press} />
+              <NavCard
+                title={item.title}
+                about={item.about}
+                press={item.press}
+              />
             </View>
           )}
         />

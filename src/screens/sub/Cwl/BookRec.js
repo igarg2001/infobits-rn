@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   SectionList,
 } from 'react-native';
@@ -338,9 +338,11 @@ const BookRec = props => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
-        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
+          onPress={() => props.navigation.goBack()}>
           <BackIcon />
-        </TouchableOpacity>
+        </Pressable>
         <Text style={{fontSize: 18, fontWeight: '700'}}>
           Book Recommendation
         </Text>
@@ -370,7 +372,8 @@ const BookRec = props => {
           borderTopRightRadius: 25,
           elevation: 3,
         }}>
-        <TouchableOpacity
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
           onPress={() => deleteRow(dispatch)}
           style={{
             display: 'flex',
@@ -380,8 +383,9 @@ const BookRec = props => {
           }}>
           <TrashIcon />
           <Text style={styles.bottomBarIconText}>Delete</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Pressable>
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
           onPress={() => addRow(dispatch)}
           style={{
             display: 'flex',
@@ -391,8 +395,9 @@ const BookRec = props => {
           }}>
           <PlusIcon />
           <Text style={styles.bottomBarIconText}>Add new</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Pressable>
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
           onPress={() => submitData(state.inputs)}
           style={{
             display: 'flex',
@@ -402,7 +407,7 @@ const BookRec = props => {
           }}>
           <TickIcon />
           <Text style={styles.bottomBarIconText}>Submit</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );

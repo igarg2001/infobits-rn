@@ -13,6 +13,10 @@ const initialState = {
   isAuth: null,
   loading: false,
   resUser: null,
+  error: {
+    value: false,
+    message: null,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +39,10 @@ const reducer = (state = initialState, action) => {
         loading: false,
         isAuth: false,
         resUser: null,
+        error: {
+          value: true,
+          message: action.payload.message,
+        },
       };
     case SET_AUTH: {
       return {

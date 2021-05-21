@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, Pressable, View} from 'react-native';
 
 const NewsCard = props => {
   return (
@@ -17,7 +17,7 @@ const NewsCard = props => {
         <Text>{props.heading}</Text>
         <Text>{props.content}</Text>
       </View>
-      <TouchableOpacity></TouchableOpacity>
+      <Pressable></Pressable>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Pressable} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import InputField from './InputField2';
 
@@ -35,9 +35,11 @@ const CwlCard = props => {
                   props.currentRadio === item.id ? 'checked' : 'unchecked'
                 }
                 onPress={() => props.setRadio(item.id)}></RadioButton>
-              <TouchableOpacity onPress={() => props.setRadio(item.id)}>
+              <Pressable
+                android_ripple={{color: '#bcbcbc'}}
+                onPress={() => props.setRadio(item.id)}>
                 <Text>{item.name}</Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           )}
         />

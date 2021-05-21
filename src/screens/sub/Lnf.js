@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   FlatList,
 } from 'react-native';
@@ -19,14 +19,14 @@ const Lnf = props => {
   const user = props.resUser;
   const username = user.userId;
   const password = user.password;
-  console.log(username, password)
+  console.log(username, password);
   const [loaded, setLoaded] = useState(false);
   const [items, setItems] = useState([]);
   useEffect(() => {
     axios
       .get(`apis/get_all_items.php?username=${username}&password=${password}`)
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
         setItems(objtoarr(res.data.data).reverse());
         setLoaded(true);
       })
@@ -61,17 +61,18 @@ const Lnf = props => {
     <>
       <ScrollView style={styles.wrapper}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Pressable
+            android_ripple={{color: '#bcbcbc'}}
+            android_ripple={{color: '#bcbcbc'}}
+            onPress={() => props.navigation.goBack()}>
             <BackIcon />
-          </TouchableOpacity>
+          </Pressable>
           <Text style={{fontSize: 18, fontWeight: '700'}}>Lost and Found</Text>
-          <TouchableOpacity>
+          <Pressable>
             <FilterIcon color="#000" fill="#000" />
-          </TouchableOpacity>
+          </Pressable>
         </View>
-        <View style={styles.listCont}>
-          {itemsList}
-        </View>
+        <View style={styles.listCont}>{itemsList}</View>
       </ScrollView>
     </>
   );

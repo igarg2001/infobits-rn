@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   FlatList,
 } from 'react-native';
 import axios from '../../apis/axiosInstance';
@@ -77,13 +77,15 @@ const DailyNews = props => {
     <>
       <ScrollView style={styles.wrapper}>
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Pressable
+            android_ripple={{color: '#bcbcbc'}}
+            onPress={() => props.navigation.goBack()}>
             <BackIcon />
-          </TouchableOpacity>
+          </Pressable>
           <Text style={{fontSize: 18, fontWeight: '700'}}>Daily News</Text>
-          <TouchableOpacity>
+          <Pressable>
             <SearchIcon color="#000" fill="#000" />
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View style={styles.listCont}>{newsList}</View>
       </ScrollView>

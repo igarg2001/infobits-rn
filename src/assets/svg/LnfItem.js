@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, Pressable, View} from 'react-native';
 
 const LnfItem = props => {
   return (
@@ -14,7 +14,8 @@ const LnfItem = props => {
       <Text style={styles.details}>
         Time Found: {props.place.substring(0, 5)}
       </Text>
-      <TouchableOpacity
+      <Pressable
+        android_ripple={{color: '#bcbcbc'}}
         disabled={props.claimed}
         style={{
           ...styles.button,
@@ -23,7 +24,7 @@ const LnfItem = props => {
         <Text style={{color: 'white'}}>
           {props.claimed ? 'CLAIMED' : 'CLAIM'}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

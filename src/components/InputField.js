@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  TextInput,
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import {TextInput, View, Pressable, Text, StyleSheet} from 'react-native';
 //import {act} from 'react-test-renderer';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -80,7 +74,8 @@ const InputField = props => {
             props.type === 'password' && !showPasswordState ? true : false
           }
         />
-        <TouchableOpacity
+        <Pressable
+          android_ripple={{color: '#bcbcbc'}}
           style={styles.touchStyle}
           onPress={() => {
             if (props.type === 'password') toggleState(!showPasswordState);
@@ -92,7 +87,7 @@ const InputField = props => {
           }}>
           {showPassword}
           {pencilIcon}
-        </TouchableOpacity>
+        </Pressable>
       </View>
       {errorView}
     </View>
