@@ -5,6 +5,8 @@ import LoginRoutes from './LoginRoutes';
 import SecureRoutes from './SecureRoutes';
 import {auth} from '../src/actions/actionCreators/auth';
 import {connect} from 'react-redux';
+import AnimatedSplash from 'react-native-animated-splash-screen';
+import SplashScreen from './SplashScreen';
 
 const Routes = props => {
   let token = null;
@@ -13,16 +15,20 @@ const Routes = props => {
     .then(res => {
       token = res ? JSON.parse(res) : null;
       props.auth(!!token, token);
-      // setTimeout(() => setLoaded(true), 1000);
-      setLoaded(true);
+      setTimeout(() => setLoaded(true), 1200);
+      // setLoaded(true);
     })
     .catch(err => console.log(err));
-  const navCont = props.isAuth ? (
-    <SecureRoutes />
-  ) : (
-    <LoginRoutes />
+  const navCont = props.isAuth ? <SecureRoutes /> : <LoginRoutes />;
+  return (
+    <AnimatedSplash
+      isLoaded={loaded}
+      backgroundColor="#56bcfc"
+      translucent={false}
+      customComponent={<SplashScreen />}>
+      {navCont}
+    </AnimatedSplash>
   );
-  return navCont;
 };
 
 const mapStatetoProps = state => ({

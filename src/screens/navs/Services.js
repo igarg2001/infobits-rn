@@ -14,7 +14,7 @@ const Services = props => {
     {
       title: 'Connect With Library',
       about: 'Provide book recommendations maybe in two lines',
-      press: () => props.navigation.navigate('cnl'),
+      press: () => props.navigation.navigate('cwl'),
     },
     {
       title: 'Daily News',
@@ -32,6 +32,7 @@ const Services = props => {
     {
       title: 'Lost And Found',
       about: 'Provide book recommendations maybe in two lines',
+      press: () => props.navigation.navigate('lnf'),
     },
   ];
   return (

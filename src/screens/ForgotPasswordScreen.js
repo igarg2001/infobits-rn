@@ -11,6 +11,10 @@ import {Button, Dialog, Portal, Provider} from 'react-native-paper';
 const ForgotPasswordScreen = props => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState({
+    value: false,
+    message: ''
+  })
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -86,7 +90,12 @@ const ForgotPasswordScreen = props => {
         setLoading(false);
         setSuccess(true);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setError({
+          value: true,
+          message: 'An error occurred when sending the '
+        })
+      });
   };
 
   return (

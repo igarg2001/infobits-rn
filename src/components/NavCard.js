@@ -12,7 +12,7 @@ const NavCard = props => {
   return (
     <Pressable
       style={styles.wrapper}
-      onPress={() => console.log('click')}
+      onPress={props.press}
       android_ripple={{
         color: "#bcbcbc",
         borderless: false

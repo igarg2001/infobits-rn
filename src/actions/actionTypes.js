@@ -8,3 +8,5 @@ export const LOGOUT = 'LOGOUT';
 export const CREATE_ACC = 'CREATE_ACC';
 export const CREATE_ACC_SUCCESS = 'CREATE_ACC_SUCCESS';
 export const CREATE_ACC_FAIL = 'CREATE_ACC_FAIL';
+
+export const SET_ERROR = 'SET_ERROR';

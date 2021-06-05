@@ -59,6 +59,7 @@ const InputField2 = props => {
           textAlignVertical={props.multiline ? 'top' : 'auto'}
           style={styles.placeholderStyles}
           placeholder={props.placeholder}
+          placeholderTextColor="rgba(0,0,0,0.3)"
           autoCapitalize="none"
           autoCorrect={false}
           value={props.value}
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     marginHorizontal: 10,
+    color: "black"
   },
   touchStyle: {
     // justifyContent: 'center',

@@ -13,9 +13,13 @@ const Drawer = createDrawerNavigator();
 
 const DrawerRoutes = props => (
   <Drawer.Navigator
-    drawerContent={props => <DrawerContent {...props} resUser={props.resUser} />}
+    drawerContent={props => (
+      <DrawerContent {...props} resUser={props.resUser} />
+    )}
     drawerStyle={{width: '90%'}}
-    screenOptions={{headerShown: false}}>
+    screenOptions={{
+      headerShown: false,
+    }}>
     <Drawer.Screen name="Home" component={HomeScreen}></Drawer.Screen>
     <Drawer.Screen name="News" component={DailyNews}></Drawer.Screen>
     <Drawer.Screen name="lnf" component={Lnf}></Drawer.Screen>

@@ -1,14 +1,7 @@
 import React, {useReducer} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  Pressable,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {auth, login} from '../actions/actionCreators/auth';
+import {auth, login, setError} from '../actions/actionCreators/auth';
 import PageHeading from '../components/PageHeading';
 import Frame from '../assets/svg/Frame';
 //import {in} from 'react-native/Libraries/Animated/Easing';
@@ -16,6 +9,7 @@ import InputField from '../components/InputField';
 import {formValidators} from '../utils/formValidators';
 import CustomButton from '../components/customButton';
 import LoadingModal from '../components/LoadingModal';
+import {Provider, Portal, Dialog, Button} from 'react-native-paper';
 
 const LoginScreen = props => {
   const reducer = (state, action) => {
@@ -129,8 +123,7 @@ const LoginScreen = props => {
             marginRight: '5%',
             marginTop: '1%',
           }}>
-          <Pressable
-            onPress={() => props.navigation.navigate('ForgotPass')}>
+          <Pressable onPress={() => props.navigation.navigate('ForgotPass')}>
             <Text style={{color: '#339cde'}}>Forgot Password?</Text>
           </Pressable>
         </View>
@@ -164,6 +157,25 @@ const LoginScreen = props => {
           /> */}
         </View>
         <LoadingModal message="Logging You In" visible={props.loading} />
+        <Provider>
+          <Portal>
+            <Dialog
+              visible={props.error.value}
+              onDismiss={() => props.setError(false, '')}
+              style={{
+                paddingVertical: '5%',
+                elevation: 5,
+                borderRadius: 5,
+              }}>
+              <Dialog.Content>
+                <Text>{props.error.message}</Text>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => props.setError(false, '')}>OK</Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        </Provider>
       </View>
     </>
   );
@@ -173,6 +185,7 @@ const mapStatetoProps = state => {
   return {
     loading: state.auth.loading,
     resUser: state.auth.resUser,
+    error: state.auth.error,
   };
 };
 
@@ -180,6 +193,7 @@ const mapDispatchtoProps = dispatch => {
   return {
     auth: (username, password, navigate) =>
       dispatch(login(username, password, navigate)),
+    setError: (value, message) => dispatch(setError(value, message)),
   };
 };
 
