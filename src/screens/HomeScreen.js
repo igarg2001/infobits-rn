@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -7,42 +7,96 @@ import {
   FlatList,
   Image,
   ScrollView,
+  ActivityIndicator,
+  Dimensions,
+  Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Hamburger from '../assets/svg/Hamburger';
 import Profile from '../assets/svg/Profile';
 import HomeCards from '../components/HomeCards';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import axios from '../apis/axiosInstance';
+import {objtoarr} from '../utils/objtoarr';
+import Carousel from 'react-native-snap-carousel';
+import {Link} from '@react-navigation/native';
 
 const HomeScreen = props => {
+  const SLIDER_WIDTH = Dimensions.get('screen').width + 80;
+  const ITEM_WIDTH = SLIDER_WIDTH * 0.7;
+  const isCarousel = useRef(null);
   //props.navigation.navigate('Services');
-  const notices = [
-    {
-      id: 1,
-      // url: require('../assets/images/notices/1.jpg'),
-    },
-
-    {
-      id: 2,
-      // url: require('../assets/images/notices/2.jpg'),
-    },
-    {
-      id: 3,
-      // url: require('../assets/images/notices/3.jpg'),
-    },
-    {
-      id: 4,
-      // url: require('../assets/images/notices/4.jpg'),
-    },
-    {
-      id: 5,
-      // url: require('../assets/images/notices/5.jpg'),
-    },
-    {
-      id: 6,
-      // url: require('../assets/images/notices/6.jpg'),
-    },
-  ];
+  const [imagesData, setImagesData] = useState(null);
+  let noticeEl = null;
+  const noticeImageUrl =
+    'http://library.bits-pilani.ac.in/uploads/notices/images/';
+  const botwUrl = 'http://library.bits-pilani.ac.in/uploads/book_of_the_month/';
+  const renderImageItem = ({item, index}) => {
+    return (
+      <Pressable
+        onPress={item.link ? () => Linking.openURL(item.link) : null}
+        style={{
+          height: Dimensions.get('screen').height * 0.22,
+          backgroundColor: 'white',
+          borderRadius: 12,
+          width: '100%',
+          marginLeft: "-12.5%",
+          paddingHorizontal: "5%",
+          paddingVertical: "2.5%",
+          elevation: 2
+        }}>
+        {({pressed}) => (
+          <Image
+            source={{
+              uri:
+                item.type === 'notice'
+                  ? noticeImageUrl + item.image
+                  : botwUrl + item.image,
+            }}
+            style={{height: '100%', opacity: pressed ? 0.5 : 1}}
+          />
+        )}
+      </Pressable>
+    );
+  };
+  if (!imagesData) {
+    noticeEl = (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: "100%",
+        }}>
+        <ActivityIndicator size="large" color="#339cde"/>
+        <Text style={{marginTop: '2%', fontSize: 18}}>Getting notices...</Text>
+      </View>
+    );
+  } else {
+    noticeEl = (
+      <Carousel
+        layout="default"
+        sliderWidth={SLIDER_WIDTH}
+        itemWidth={ITEM_WIDTH}
+        layoutCardOffset={2}
+        ref={isCarousel}
+        data={imagesData}
+        keyExtractor={item => item.id}
+        renderItem={renderImageItem}
+      />
+    );
+  }
+  useEffect(() => {
+    axios
+      .get('apis/notices.php')
+      .then(res => {
+        //console.log(res.data.data);
+        setImagesData(objtoarr(res.data.data));
+      })
+      .catch(err => console.log(err));
+  }, []);
+  console.log(noticeEl);
   return (
     <>
       <View style={styles.wrapper}>
@@ -122,7 +176,10 @@ const HomeScreen = props => {
                 paddingLeft: '5%',
                 elevation: 8,
               }}>
-              <Image source={require('../assets/images/spaces.png')} />
+              <Image
+                source={require('../assets/images/resources.jpg')}
+                style={{width: 52, height: 43}}
+              />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
                 Library Resources
               </Text>
@@ -149,7 +206,10 @@ const HomeScreen = props => {
                 paddingLeft: '5%',
                 elevation: 8,
               }}>
-              <Image source={require('../assets/images/spaces.png')} />
+              <Image
+                source={require('../assets/images/services.jpg')}
+                style={{width: 52, height: 43}}
+              />
               <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: '5%'}}>
                 Library Services
               </Text>
@@ -176,26 +236,18 @@ const HomeScreen = props => {
           </View>
         </View>
         <ScrollView
-          style={{alignSelf: 'flex-start', marginTop: '8%', marginLeft: '5%'}}>
+          style={{marginTop: '8%', width: "100%", }}>
           <Text
             style={{
               fontWeight: '700',
               fontSize: 22,
               textAlign: 'left',
               alignSelf: 'flex-start',
+              marginLeft: "5%"
             }}>
             Notifications
           </Text>
-          <View style={{flex: 1}}>
-            <FlatList
-              horizontal
-              data={notices}
-              keyExtractor={i => i.id}
-              renderItem={({item}) => (
-                <View style={{width: '90%', backgroundColor: 'white'}}></View>
-              )}
-            />
-          </View>
+            {noticeEl}
         </ScrollView>
       </View>
     </>

@@ -61,6 +61,7 @@ const InputField = props => {
         <TextInput
           style={styles.placeholderStyles}
           placeholder={props.placeholder}
+          placeholderTextColor="rgba(0,0,0,0.3)"
           autoCapitalize="none"
           autoCorrect={false}
           value={props.value}
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     backgroundColor: '#f9f8fd',
     borderColor: 'transparent',
+    color: 'black',
     //  elevation: 2,
   },
   iconStyles: {
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     marginHorizontal: 28,
+    color: 'rgb(0, 0, 0)',
   },
   touchStyle: {
     // justifyContent: 'center',

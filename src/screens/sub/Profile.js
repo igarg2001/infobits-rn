@@ -13,6 +13,7 @@ import {Modal, Avatar} from 'react-native-paper';
 import {getInitials} from '../../utils/getInitials';
 import axios from '../../apis/axiosInstance';
 import LoadingModal from '../../components/LoadingModal';
+import {Provider, Portal, Dialog, Button} from 'react-native-paper';
 
 const Profile = props => {
   const [modal, setModal] = useState({
@@ -27,6 +28,8 @@ const Profile = props => {
     email: '',
     mobile: '',
   });
+
+  const [confirmDialog, setConfirmDialog] = useState(false);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -206,7 +209,7 @@ const Profile = props => {
           props.resUser.password,
       )
       .then(res => {
-        console.log(res.data.mobile_number);
+        console.log(res.data, '--------------');
         setUserDetails({
           name: res.data.name,
           email: res.data.email_id,
@@ -216,7 +219,9 @@ const Profile = props => {
         setModal(old => ({...old, value: false}));
         changeInput(dispatch, {
           targetInput: state1.inputs[0].name,
-          value: res.data.mobile_number,
+          value: res.data.mobile_number
+            ? res.data.mobile_number
+            : 'no mobile number',
         });
       })
       .catch(err => {
@@ -236,7 +241,7 @@ const Profile = props => {
         </Text>
         <Pressable
           android_ripple={{color: '#bcbcbc'}}
-          onPress={() => props.logout()}>
+          onPress={() => setConfirmDialog(true)}>
           <Text style={{fontSize: 16, color: '#339cde', fontWeight: '500'}}>
             Logout
           </Text>
@@ -293,7 +298,7 @@ const Profile = props => {
             <InputField
               disabled
               value={userDetails.name}
-              modalOpen={modal2 || modal.value}
+              modalOpen={modal2 || modal.value || confirmDialog}
             />
           </View>
         </View>
@@ -303,7 +308,7 @@ const Profile = props => {
             <InputField
               disabled
               value={userDetails.email}
-              modalOpen={modal2 || modal.value}
+              modalOpen={modal2 || modal.value || confirmDialog}
             />
           </View>
         </View>
@@ -311,7 +316,7 @@ const Profile = props => {
           <Text style={styles.detailName}>MOBILE</Text>
           <View style={{marginTop: '-2%'}}>
             <InputField
-              modalOpen={modal.value || modal2}
+             modalOpen={modal2 || modal.value || confirmDialog}
               disabled={!mobileEdit}
               value={state1.inputs[0].value}
               type={state1.inputs[0].config.type}
@@ -455,6 +460,26 @@ const Profile = props => {
         </ScrollView>
       </Modal>
       <LoadingModal visible={modal.value} message={modal.message} />
+      <Provider>
+        <Portal>
+          <Dialog
+            visible={confirmDialog}
+            onDismiss={() => setConfirmDialog(false)}
+            style={{
+              paddingVertical: '5%',
+              elevation: 5,
+              borderRadius: 5,
+            }}>
+            <Dialog.Content>
+              <Text>Are you sure you want to logout</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => setConfirmDialog(false)}>NO</Button>
+              <Button onPress={() => props.logout()}>YES</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+      </Provider>
     </View>
   );
 };

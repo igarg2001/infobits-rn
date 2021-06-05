@@ -7,6 +7,7 @@ import {
   CREATE_ACC_SUCCESS,
   LOGOUT,
   SET_AUTH,
+  SET_ERROR,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -41,7 +42,7 @@ const reducer = (state = initialState, action) => {
         resUser: null,
         error: {
           value: true,
-          message: action.payload.message,
+          message: action.message,
         },
       };
     case SET_AUTH: {
@@ -74,6 +75,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         isAuth: false,
         resUser: null,
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: {
+          value: action.value,
+          message: action.message,
+        },
       };
     default:
       return state;
