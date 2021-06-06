@@ -123,7 +123,7 @@ const HomeScreen = props => {
             </View>
             <Pressable
               android_ripple={{color: '#bcbcbc'}}
-              onPress={() => props.navigation.navigate('Profile')}
+              onPress={() => props.navigation.navigate('ProfileStack')}
               style={{
                 width: 32,
                 height: 32,
