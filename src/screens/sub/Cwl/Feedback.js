@@ -113,7 +113,7 @@ const Feedback = props => {
             borderWidth: 1,
             borderColor: '#56bcfc',
           }}
-          textStyle={{color: '#56bcfc'}}
+         
         />
         <CustomButton title="SUBMIT" />
       </View>

@@ -27,7 +27,7 @@ const DrawerContent = props => {
     <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1}}>
       <View style={{position: 'absolute', top: 0, width: '100%'}}>
         <Pressable
-          android_ripple={{color: '#bcbcbc'}}
+          android_ripple={{color: '#cee8f0'}}
           style={style.profileWrapper}
           onPress={() => props.navigation.navigate('Profile')}>
           <View style={style.avatar}>

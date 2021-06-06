@@ -36,14 +36,15 @@ const HomeScreen = props => {
       <Pressable
         onPress={item.link ? () => Linking.openURL(item.link) : null}
         style={{
-          height: Dimensions.get('screen').height * 0.22,
+          height: Dimensions.get('screen').height * 0.285,
           backgroundColor: 'white',
           borderRadius: 12,
-          width: '100%',
-          marginLeft: "-12.5%",
-          paddingHorizontal: "5%",
+          width: '94%',
+          marginLeft: "-9.5%",
+          paddingHorizontal: "2.5%",
           paddingVertical: "2.5%",
-          elevation: 2
+          elevation: 2,
+          marginBottom: "3%"
         }}>
         {({pressed}) => (
           <Image
@@ -84,6 +85,7 @@ const HomeScreen = props => {
         data={imagesData}
         keyExtractor={item => item.id}
         renderItem={renderImageItem}
+        style={{marginBottom: "4%"}}
       />
     );
   }
@@ -116,7 +118,7 @@ const HomeScreen = props => {
               }}>
               <Image
                 source={require('../assets/images/infobits.png')}
-                style={{height: 56, width: 56}}
+                style={{height: 42, width: 42}}
               />
             </View>
             <Pressable
@@ -134,7 +136,7 @@ const HomeScreen = props => {
               <Profile />
             </Pressable>
           </View>
-          <View style={{marginTop: '8%', marginHorizontal: '8%'}}>
+          <View style={{marginTop: '6%', marginHorizontal: '8%'}}>
             <Text style={{textAlign: 'right'}}>
               “Quote is a good way to fill spaces that can’t be used otherwise”
             </Text>
@@ -143,7 +145,7 @@ const HomeScreen = props => {
             </Text>
           </View>
         </View>
-        <View style={{marginTop: '8%', width: '90%'}}>
+        <View style={{marginTop: '6%', width: '90%'}}>
           <View style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
             <Pressable
               android_ripple={{color: '#bcbcbc'}}
@@ -236,14 +238,15 @@ const HomeScreen = props => {
           </View>
         </View>
         <ScrollView
-          style={{marginTop: '8%', width: "100%", }}>
+          style={{marginTop: '6%', width: "100%"}}>
           <Text
             style={{
               fontWeight: '700',
               fontSize: 22,
               textAlign: 'left',
               alignSelf: 'flex-start',
-              marginLeft: "5%"
+              marginLeft: "5%",
+              marginBottom: "1%"
             }}>
             Notifications
           </Text>
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(86, 188, 252)',
     //transform: [{matrix: [-1, 0.04, 0.04, 1, 0, 0, 0, 0, 0]}],
-    height: '23.5%',
+    height: '19%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

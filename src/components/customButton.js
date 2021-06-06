@@ -4,7 +4,7 @@ import {View, Text, Pressable, StyleSheet} from 'react-native';
 const CustomButton = props => {
   return (
     <Pressable
-      android_ripple={{color: '#bcbcbc'}}
+      android_ripple={{color: '#cee8f0'}}
       disabled={props.disabled}
       onPress={props.press}
       style={{
