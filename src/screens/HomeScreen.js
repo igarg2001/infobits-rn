@@ -44,7 +44,7 @@ const HomeScreen = props => {
           paddingHorizontal: "2.5%",
           paddingVertical: "2.5%",
           elevation: 2,
-          marginBottom: "3%"
+         marginBottom: "2%"
         }}>
         {({pressed}) => (
           <Image
@@ -105,8 +105,9 @@ const HomeScreen = props => {
         <View style={styles.lightHeader}>
           <View style={styles.headerContent}>
             <Pressable
-              android_ripple={{color: '#bcbcbc'}}
-              onPress={() => props.navigation.toggleDrawer()}>
+              android_ripple={{color: '#cee8f0'}}
+              onPress={() => props.navigation.toggleDrawer()}
+              style={{padding: 5}}>
               <Hamburger />
             </Pressable>
             <View
@@ -115,6 +116,7 @@ const HomeScreen = props => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
+                padding: 5
               }}>
               <Image
                 source={require('../assets/images/infobits.png')}
@@ -122,12 +124,13 @@ const HomeScreen = props => {
               />
             </View>
             <Pressable
-              android_ripple={{color: '#bcbcbc'}}
+              android_ripple={{color: '#bcbcbc', radius: 16}}
               onPress={() => props.navigation.navigate('ProfileStack')}
               style={{
                 width: 32,
                 height: 32,
                 borderRadius: 32,
+                padding: 5,
                 backgroundColor: 'white',
                 display: 'flex',
                 justifyContent: 'center',
@@ -238,7 +241,7 @@ const HomeScreen = props => {
           </View>
         </View>
         <ScrollView
-          style={{marginTop: '6%', width: "100%"}}>
+          style={{marginTop: '4%', width: "100%"}}>
           <Text
             style={{
               fontWeight: '700',
@@ -268,7 +271,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(86, 188, 252)',
     //transform: [{matrix: [-1, 0.04, 0.04, 1, 0, 0, 0, 0, 0]}],
-    height: '20%',
+    height: '21%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
