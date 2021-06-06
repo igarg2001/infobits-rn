@@ -6,7 +6,7 @@ import {formValidators} from '../utils/formValidators';
 import axios from 'axios';
 import FormData from 'form-data';
 import LoadingModal from '../components/LoadingModal';
-import {Button, Dialog, Portal, Provider} from 'react-native-paper';
+import {Button, DefaultTheme as PaperDefaultTheme, Dialog, Portal, Provider} from 'react-native-paper';
 
 const ForgotPasswordScreen = props => {
   const [loading, setLoading] = useState(false);
@@ -159,6 +159,7 @@ const ForgotPasswordScreen = props => {
         <Provider>
           <Portal>
             <Dialog
+            theme={PaperDefaultTheme}
               visible={success}
               onDismiss={() => setSuccess(false)}
               style={{

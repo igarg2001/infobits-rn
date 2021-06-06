@@ -13,12 +13,18 @@ import {Modal, Avatar} from 'react-native-paper';
 import {getInitials} from '../../utils/getInitials';
 import axios from '../../apis/axiosInstance';
 import LoadingModal from '../../components/LoadingModal';
-import {Provider, Portal, Dialog, Button} from 'react-native-paper';
+import {
+  Provider,
+  Portal,
+  Dialog,
+  Button,
+  DefaultTheme as PaperDefaultTheme,
+} from 'react-native-paper';
 
 const Profile = props => {
   const [modal, setModal] = useState({
-    value: false,
-    message: '',
+    value: true,
+    message: 'Fetching user details',
   });
 
   const [modal2, setModal2] = useState(false);
@@ -30,6 +36,8 @@ const Profile = props => {
   });
 
   const [confirmDialog, setConfirmDialog] = useState(false);
+
+  console.log(modal, modal2, confirmDialog);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -144,11 +152,9 @@ const Profile = props => {
       payload: payload,
     });
   };
-  //console.log(getInitials(userDetails.name));
-  console.log(props.resUser);
   const [mobileEdit, setMobileEdit] = useState(false);
   const onEdit = () => {
-    console.log('hey');
+    // console.log('hey');
     setMobileEdit(true);
   };
   const updateMobile = value => {
@@ -161,7 +167,7 @@ const Profile = props => {
         `apis/user_settings.php?username=${props.resUser.userId}&password=${props.resUser.password}&new_value=${value}&change_type=1`,
       )
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         changeInput(dispatch, {
           targetInput: state1.inputs[0].name,
           value: value,
@@ -169,7 +175,7 @@ const Profile = props => {
         setModal(old => ({...old, value: false}));
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
     setMobileEdit(false);
   };
@@ -188,19 +194,16 @@ const Profile = props => {
         `apis/user_settings.php?username=${props.resUser.userId}&password=${oldP}&new_value=${newP}&change_type=0`,
       )
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
 
         setModal(old => ({...old, value: false}));
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   };
   useEffect(() => {
-    setModal({
-      value: true,
-      message: 'Fetching user details',
-    });
+    console.log(modal, 'before get');
     axios
       .get(
         'apis/user_settings.php?username=' +
@@ -209,22 +212,25 @@ const Profile = props => {
           props.resUser.password,
       )
       .then(res => {
-        console.log(res.data, '--------------');
+        // setTimeout(() => {
+        console.log(modal, 'before setUserDetails');
         setUserDetails({
           name: res.data.name,
           email: res.data.email_id,
           mobile: res.data.mobile_number,
           //loading: false,
         });
-        setModal(old => ({...old, value: false}));
         changeInput(dispatch, {
           targetInput: state1.inputs[0].name,
           value: res.data.mobile_number
             ? res.data.mobile_number
             : 'no mobile number',
         });
+        setModal(old => ({...old, value: false}));
+        // }, 1000);
       })
       .catch(err => {
+        console.log('hi');
         setModal(old => ({...old, value: false}));
       });
   }, []);
@@ -316,7 +322,7 @@ const Profile = props => {
           <Text style={styles.detailName}>MOBILE</Text>
           <View style={{marginTop: '-2%'}}>
             <InputField
-             modalOpen={modal2 || modal.value || confirmDialog}
+              modalOpen={modal2 || modal.value || confirmDialog}
               disabled={!mobileEdit}
               value={state1.inputs[0].value}
               type={state1.inputs[0].config.type}
@@ -336,7 +342,7 @@ const Profile = props => {
         <CustomButton
           title={mobileEdit ? 'SAVE' : 'Change Password'}
           press={() => {
-            console.log('hi2');
+            // console.log('hi2');
             if (mobileEdit) {
               updateMobile(state1.inputs[0].value);
             } else {
@@ -345,6 +351,7 @@ const Profile = props => {
           }}
         />
       </View>
+
       <Modal
         dismissable
         onDismiss={() => setModal2(false)}
@@ -463,6 +470,7 @@ const Profile = props => {
       <Provider>
         <Portal>
           <Dialog
+            theme={PaperDefaultTheme}
             visible={confirmDialog}
             onDismiss={() => setConfirmDialog(false)}
             style={{

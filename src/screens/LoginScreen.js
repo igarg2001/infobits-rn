@@ -9,7 +9,7 @@ import InputField from '../components/InputField';
 import {formValidators} from '../utils/formValidators';
 import CustomButton from '../components/customButton';
 import LoadingModal from '../components/LoadingModal';
-import {Provider, Portal, Dialog, Button} from 'react-native-paper';
+import {Provider, Portal, Dialog, Button, DefaultTheme as PaperDefaultTheme} from 'react-native-paper';
 
 const LoginScreen = props => {
   const reducer = (state, action) => {
@@ -160,6 +160,7 @@ const LoginScreen = props => {
         <Provider>
           <Portal>
             <Dialog
+            theme={PaperDefaultTheme}
               visible={props.error.value}
               onDismiss={() => props.setError(false, '')}
               style={{
