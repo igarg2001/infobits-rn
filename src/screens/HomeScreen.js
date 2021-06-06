@@ -145,7 +145,7 @@ const HomeScreen = props => {
             </Text>
           </View>
         </View>
-        <View style={{marginTop: '6%', width: '90%'}}>
+        <View style={{marginTop: '5%', width: '90%'}}>
           <View style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
             <Pressable
               android_ripple={{color: '#bcbcbc'}}
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(86, 188, 252)',
     //transform: [{matrix: [-1, 0.04, 0.04, 1, 0, 0, 0, 0, 0]}],
-    height: '19%',
+    height: '20%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
