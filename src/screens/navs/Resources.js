@@ -41,11 +41,14 @@ const Resources = props => {
       <View style={styles.wrapper}>
         <View style={styles.lightHeader}>
           <View style={styles.headerContent}>
-            <Pressable
-              android_ripple={{color: '#bcbcbc'}}
-              onPress={() => props.navigation.goBack()}>
-              <Hamburger />
-            </Pressable>
+            <View style={{flex: 0.3}}>
+              <Pressable
+                style={{width: 32}}
+                android_ripple={{color: '#bcbcbc'}}
+                onPress={() => props.navigation.goBack()}>
+                <Hamburger />
+              </Pressable>
+            </View>
             <Text style={{fontWeight: '700', fontSize: 18}}>
               Library Resources
             </Text>
@@ -54,6 +57,7 @@ const Resources = props => {
         </View>
         <View style={{marginTop: '5%'}}></View>
         <FlatList
+          contentContainerStyle={{minHeight: '90%'}}
           data={items}
           renderItem={({item}) => (
             <View style={{width: '90%', display: 'flex', alignItems: 'center'}}>

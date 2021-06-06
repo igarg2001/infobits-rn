@@ -237,21 +237,32 @@ const Profile = props => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
-        <Pressable
-          android_ripple={{color: '#bcbcbc'}}
-          onPress={() => props.navigation.goBack()}>
-          <BackIcon />
-        </Pressable>
-        <Text style={{fontSize: 18, fontWeight: '700', textAlign: 'center'}}>
-          Profile
-        </Text>
-        <Pressable
-          android_ripple={{color: '#bcbcbc'}}
-          onPress={() => setConfirmDialog(true)}>
-          <Text style={{fontSize: 16, color: '#339cde', fontWeight: '500'}}>
-            Logout
-          </Text>
-        </Pressable>
+        <View style={{flex: 0.3}}>
+          <Pressable
+            style={{width: 32}}
+            android_ripple={{color: '#bcbcbc'}}
+            onPress={() => props.navigation.goBack()}>
+            <BackIcon />
+          </Pressable>
+        </View>
+
+        <Text style={{fontSize: 18, fontWeight: '700'}}>Profile</Text>
+        <View style={{flex: 0.3}}>
+          <Pressable onPress={() => setConfirmDialog(true)}>
+            {({pressed}) => (
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: '#339cde',
+                  fontWeight: '500',
+                  textAlign: 'right',
+                  opacity: pressed ? 0.5 : 1,
+                }}>
+                Logout
+              </Text>
+            )}
+          </Pressable>
+        </View>
       </View>
 
       <View style={styles.avatar}>

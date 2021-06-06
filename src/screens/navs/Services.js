@@ -40,19 +40,23 @@ const Services = props => {
       <View style={styles.wrapper}>
         <View style={styles.lightHeader}>
           <View style={styles.headerContent}>
-            <Pressable
-              android_ripple={{color: '#bcbcbc'}}
-              onPress={() => props.navigation.goBack()}>
-              <Hamburger />
-            </Pressable>
+          <View style={{flex: 0.3}}>
+              <Pressable
+                style={{width: 32}}
+                android_ripple={{color: '#bcbcbc'}}
+                onPress={() => props.navigation.goBack()}>
+                <Hamburger />
+              </Pressable>
+            </View>
             <Text style={{fontWeight: '700', fontSize: 18}}>
               Library Services
             </Text>
             <View style={{flex: 0.3}}></View>
           </View>
         </View>
-        <View style={{marginTop: '5%'}}></View>
+        <View style={{marginTop: '5%', marginBottom: "5%"}}></View>
         <FlatList
+        contentContainerStyle={{minHeight: "80%"}}
           data={items}
           renderItem={({item}) => (
             <View style={{width: '90%', display: 'flex', alignItems: 'center'}}>
