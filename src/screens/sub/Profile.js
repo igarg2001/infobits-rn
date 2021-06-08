@@ -20,6 +20,7 @@ import {
   Button,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
+import InvalidPasswordDialog from '../../components/InvalidPasswordDialog';
 
 const Profile = props => {
   const [modal, setModal] = useState({
@@ -202,8 +203,8 @@ const Profile = props => {
         // console.log(err);
       });
   };
+  const [invalidPassword, setInvalidPassword] = useState(false);
   useEffect(() => {
-    console.log(modal, 'before get');
     axios
       .get(
         'apis/user_settings.php?username=' +
@@ -212,27 +213,39 @@ const Profile = props => {
           props.resUser.password,
       )
       .then(res => {
+        console.log(res.data, '----------------');
+        if (
+          res.data.status === 0 &&
+          res.data.Message.includes('Invalid Password')
+        ) {
+          setInvalidPassword(true);
+        }
         // setTimeout(() => {
-        console.log(modal, 'before setUserDetails');
-        setUserDetails({
-          name: res.data.name,
-          email: res.data.email_id,
-          mobile: res.data.mobile_number,
-          //loading: false,
-        });
-        changeInput(dispatch, {
-          targetInput: state1.inputs[0].name,
-          value: res.data.mobile_number
-            ? res.data.mobile_number
-            : 'no mobile number',
-        });
-        setModal(old => ({...old, value: false}));
+        else {
+          setUserDetails({
+            name: res.data.name,
+            email: res.data.email_id,
+            mobile: res.data.mobile_number,
+            //loading: false,
+          });
+          changeInput(dispatch, {
+            targetInput: state1.inputs[0].name,
+            value: res.data.mobile_number
+              ? res.data.mobile_number
+              : 'no mobile number',
+          });
+          setModal(old => ({...old, value: false}));
+        }
+
         // }, 1000);
       })
       .catch(err => {
         console.log('hi');
         setModal(old => ({...old, value: false}));
       });
+    return () => {
+      setInvalidPassword(false);
+    };
   }, []);
   return (
     <View style={styles.wrapper}>
@@ -498,6 +511,7 @@ const Profile = props => {
           </Dialog>
         </Portal>
       </Provider>
+      <InvalidPasswordDialog visible={invalidPassword} action={props.logout}/>
     </View>
   );
 };

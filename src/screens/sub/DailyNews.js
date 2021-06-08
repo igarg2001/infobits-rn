@@ -13,6 +13,8 @@ import BackIcon from '../../assets/svg/ArrowLeft';
 import SearchIcon from '../../assets/svg/Search';
 import NewsItem from '../../assets/svg/NewsItem';
 import {connect} from 'react-redux';
+import {logout} from '../../actions/actionCreators/auth';
+import InvalidPasswordDialog from '../../components/InvalidPasswordDialog';
 
 const DailyNews = props => {
   const [loaded, setLoaded] = useState(false);
@@ -25,17 +27,25 @@ const DailyNews = props => {
     },
   ]);
   console.log(newsItems[0]);
+  const [invalidPassword, setInvalidPassword] = useState(false);
   useEffect(() => {
     axios
       .get(
         `apis/daily_news.php?username=${props.resUser.userId}&password=${props.resUser.password}&action=update`,
       )
       .then(res => {
-        console.log('hi');
-        const obj = res.data.data;
         console.log(res.data);
-        setNewsItems(objtoarr(obj));
-        setLoaded(true);
+        if (
+          !res.data.data &&
+          res.data.err_message &&
+          res.data.err_message.includes('Invalid Password')
+        ) {
+          setInvalidPassword(true);
+        } else {
+          const obj = res.data.data;
+          setNewsItems(objtoarr(obj));
+          setLoaded(true);
+        }
       })
       .catch(err => console.log(err));
   }, []);
@@ -75,7 +85,7 @@ const DailyNews = props => {
 
   return (
     <>
-      <ScrollView style={styles.wrapper}>
+      <ScrollView style={styles.wrapper} contentContainerStyle={{minHeight: "100%"}}>
         <View style={styles.headerContent}>
           <Pressable
             android_ripple={{color: '#bcbcbc'}}
@@ -88,6 +98,10 @@ const DailyNews = props => {
           </Pressable>
         </View>
         <View style={styles.listCont}>{newsList}</View>
+        <InvalidPasswordDialog
+          visible={invalidPassword}
+          action={props.logout}
+        />
       </ScrollView>
     </>
   );
@@ -123,7 +137,9 @@ const mapStatetoProps = state => {
 };
 
 const mapDispatchtoProps = dispatch => {
-  return {};
+  return {
+    logout: () => dispatch(logout()),
+  };
 };
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(DailyNews);

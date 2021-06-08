@@ -14,6 +14,8 @@ import axios from '../../apis/axiosInstance';
 import {objtoarr} from '../../utils/objtoarr';
 import {set} from 'react-native-reanimated';
 import {connect} from 'react-redux';
+import InvalidPasswordDialog from '../../components/InvalidPasswordDialog';
+import {logout} from '../../actions/actionCreators/auth';
 
 const Lnf = props => {
   const user = props.resUser;
@@ -22,17 +24,26 @@ const Lnf = props => {
   console.log(username, password);
   const [loaded, setLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+
   useEffect(() => {
     axios
       .get(`apis/get_all_items.php?username=${username}&password=${password}`)
       .then(res => {
-        console.log(res.data);
-        setItems(objtoarr(res.data.data).reverse());
-        setLoaded(true);
+        if (
+          !res.data.data &&
+          res.data.err_message &&
+          res.data.err_message.includes('Invalid Password')
+        ) {
+          setInvalidPassword(true);
+        } else {
+          setItems(objtoarr(res.data.data).reverse());
+          setLoaded(true);
+        }
       })
       .catch(err => console.log(err));
   }, []);
-
+  items.map(i => console.log(i.status))
   const itemsList = loaded ? (
     <FlatList
       style={{width: '100%', display: 'flex', marginBottom: '8%'}}
@@ -59,7 +70,9 @@ const Lnf = props => {
 
   return (
     <>
-      <ScrollView style={styles.wrapper}>
+      <ScrollView
+        style={styles.wrapper}
+        contentContainerStyle={{minHeight: '100%'}}>
         <View style={styles.headerContent}>
           <Pressable
             android_ripple={{color: '#bcbcbc'}}
@@ -73,6 +86,10 @@ const Lnf = props => {
           </Pressable>
         </View>
         <View style={styles.listCont}>{itemsList}</View>
+        <InvalidPasswordDialog
+          visible={invalidPassword}
+          action={props.logout}
+        />
       </ScrollView>
     </>
   );
@@ -104,5 +121,10 @@ const styles = StyleSheet.create({
 const mapStatetoProps = state => ({
   resUser: state.auth.resUser,
 });
+const mapDispatchtoProps = dispatch => {
+  return {
+    logout: () => dispatch(logout()),
+  };
+};
 
-export default connect(mapStatetoProps)(Lnf);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Lnf);
