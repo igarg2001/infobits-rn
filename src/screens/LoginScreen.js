@@ -83,11 +83,6 @@ const LoginScreen = props => {
       payload: payload,
     });
   };
-
-  state.inputs.map(el => {
-    console.log(el.value);
-  });
-
   return (
     <>
       <View style={styles.wrapper}>
@@ -136,6 +131,7 @@ const LoginScreen = props => {
             marginTop: '4%',
           }}>
           <CustomButton
+            disabled={!state.formIsValid}
             title="LOGIN"
             press={() =>
               props.auth(

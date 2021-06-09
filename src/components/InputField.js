@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {TextInput, View, Pressable, Text, StyleSheet} from 'react-native';
 //import {act} from 'react-test-renderer';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import Eye from '../assets/svg/eye';
-import EyeCross from '../assets/svg/eye-close';
 import PencilIcon from '../assets/svg/Pencil';
+
+import Eye from "../assets/svg/Eye"
+import EyeClose from "../assets/svg/EyeClose"
 
 const InputField = props => {
   let showPassword = null;
@@ -13,13 +13,17 @@ const InputField = props => {
   const [active, setActive] = useState(false);
   console.log(active);
 
+
+
   if (props.type === 'password') {
-    showPassword = showPasswordState ? (
-      <Eye color="#000000" />
+    showPassword = !showPasswordState ? (
+      <Eye color="black" fill="#0c0c0c"/>
     ) : (
-      <EyeCross color="#000000" />
+      <EyeClose fill="#0c0c0c"/>
     );
   }
+
+  console.log(showPassword)
   const pencilIcon = props.editIcon ? <PencilIcon /> : null;
   let errorView = null;
   if (props.touched && !props.valid) {
@@ -119,13 +123,15 @@ const styles = StyleSheet.create({
     color: 'rgb(0, 0, 0)',
   },
   touchStyle: {
-    // justifyContent: 'center',
-    // marginHorizontal: 8,
+    justifyContent: 'center',
+    marginHorizontal: 8,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: '3%',
+    flex: 0.2,
+    elevation: 1320
   },
   errorTextStyle: {
     color: 'red',

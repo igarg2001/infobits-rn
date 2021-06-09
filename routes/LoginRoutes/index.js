@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, CardStyleInterpolators} from '@react-navigation/stack';
 import React from 'react';
 import ForgotPasswordScreen from '../../src/screens/ForgotPasswordScreen';
 import LoginScreen from '../../src/screens/LoginScreen';
@@ -12,6 +12,7 @@ const LoginRoutes = props => {
       <LoginNavigator.Navigator
         screenOptions={{
           headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
         }}>
         <LoginNavigator.Screen name="Login" component={LoginScreen} />
         <LoginNavigator.Screen name="SignUp" component={SignUpScreen} />

@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Eye from '../assets/svg/eye';
-import EyeCross from '../assets/svg/eye-close';
+import Eye from '../assets/svg/Eye';
+import EyeCross from '../assets/svg/EyeClose';
 
 const InputField2 = props => {
   let errorView = null;
