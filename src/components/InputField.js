@@ -16,7 +16,7 @@ const InputField = props => {
 
 
   if (props.type === 'password') {
-    showPassword = !showPasswordState ? (
+    showPassword = showPasswordState ? (
       <Eye color="black" fill="#0c0c0c"/>
     ) : (
       <EyeClose fill="#0c0c0c"/>
@@ -130,8 +130,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: '3%',
-    flex: 0.2,
-    elevation: 1320
   },
   errorTextStyle: {
     color: 'red',
