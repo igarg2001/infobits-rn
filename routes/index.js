@@ -15,7 +15,7 @@ const Routes = props => {
     .then(res => {
       token = res ? JSON.parse(res) : null;
       props.auth(!!token, token);
-      setTimeout(() => setLoaded(true), 1200);
+      setTimeout(() => setLoaded(true), 450);
       // setLoaded(true);
     })
     .catch(err => console.log(err));
