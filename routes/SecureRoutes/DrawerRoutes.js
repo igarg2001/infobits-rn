@@ -21,7 +21,7 @@ const DrawerRoutes = props => (
     <Drawer.Screen name="News" component={DailyNews}></Drawer.Screen>
     <Drawer.Screen name="lnf" component={Lnf}></Drawer.Screen>
     <Drawer.Screen name="Profile" component={Profile}></Drawer.Screen>
-   
+
     <Drawer.Screen name="cwl" component={CwlStack}></Drawer.Screen>
   </Drawer.Navigator>
 );

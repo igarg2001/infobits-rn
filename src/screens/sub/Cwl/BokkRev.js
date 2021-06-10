@@ -143,7 +143,6 @@ const BokkRev = props => {
             borderWidth: 1,
             borderColor: '#56bcfc',
           }}
-          
         />
         <CustomButton title="SUBMIT" press={() => submitData(state.inputs)} />
       </View>

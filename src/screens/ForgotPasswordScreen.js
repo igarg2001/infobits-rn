@@ -6,15 +6,21 @@ import {formValidators} from '../utils/formValidators';
 import axios from 'axios';
 import FormData from 'form-data';
 import LoadingModal from '../components/LoadingModal';
-import {Button, DefaultTheme as PaperDefaultTheme, Dialog, Portal, Provider} from 'react-native-paper';
+import {
+  Button,
+  DefaultTheme as PaperDefaultTheme,
+  Dialog,
+  Portal,
+  Provider,
+} from 'react-native-paper';
 
 const ForgotPasswordScreen = props => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState({
     value: false,
-    message: ''
-  })
+    message: '',
+  });
   const reducer = (state, action) => {
     switch (action.type) {
       case 'CHANGE_INPUT':
@@ -93,8 +99,8 @@ const ForgotPasswordScreen = props => {
       .catch(err => {
         setError({
           value: true,
-          message: 'An error occurred when sending the '
-        })
+          message: 'An error occurred when sending the ',
+        });
       });
   };
 
@@ -159,7 +165,7 @@ const ForgotPasswordScreen = props => {
         <Provider>
           <Portal>
             <Dialog
-            theme={PaperDefaultTheme}
+              theme={PaperDefaultTheme}
               visible={success}
               onDismiss={() => setSuccess(false)}
               style={{

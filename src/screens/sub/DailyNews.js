@@ -85,7 +85,9 @@ const DailyNews = props => {
 
   return (
     <>
-      <ScrollView style={styles.wrapper} contentContainerStyle={{minHeight: "100%"}}>
+      <ScrollView
+        style={styles.wrapper}
+        contentContainerStyle={{minHeight: '100%'}}>
         <View style={styles.headerContent}>
           <Pressable
             android_ripple={{color: '#bcbcbc'}}

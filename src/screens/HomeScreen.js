@@ -40,11 +40,11 @@ const HomeScreen = props => {
           backgroundColor: 'white',
           borderRadius: 12,
           width: '94%',
-          marginLeft: "-9.5%",
-          paddingHorizontal: "2.5%",
-          paddingVertical: "2.5%",
+          marginLeft: '-9.5%',
+          paddingHorizontal: '2.5%',
+          paddingVertical: '2.5%',
           elevation: 2,
-         marginBottom: "2%"
+          marginBottom: '2%',
         }}>
         {({pressed}) => (
           <Image
@@ -68,9 +68,9 @@ const HomeScreen = props => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          width: "100%",
+          width: '100%',
         }}>
-        <ActivityIndicator size="large" color="#339cde"/>
+        <ActivityIndicator size="large" color="#339cde" />
         <Text style={{marginTop: '2%', fontSize: 18}}>Getting notices...</Text>
       </View>
     );
@@ -85,7 +85,7 @@ const HomeScreen = props => {
         data={imagesData}
         keyExtractor={item => item.id}
         renderItem={renderImageItem}
-        style={{marginBottom: "4%"}}
+        style={{marginBottom: '4%'}}
       />
     );
   }
@@ -116,7 +116,7 @@ const HomeScreen = props => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: 5
+                padding: 5,
               }}>
               <Image
                 source={require('../assets/images/infobits.png')}
@@ -240,20 +240,19 @@ const HomeScreen = props => {
             </Pressable>
           </View>
         </View>
-        <ScrollView
-          style={{marginTop: '4%', width: "100%"}}>
+        <ScrollView style={{marginTop: '4%', width: '100%'}}>
           <Text
             style={{
               fontWeight: '700',
               fontSize: 22,
               textAlign: 'left',
               alignSelf: 'flex-start',
-              marginLeft: "5%",
-              marginBottom: "1%"
+              marginLeft: '5%',
+              marginBottom: '1%',
             }}>
             Notifications
           </Text>
-            {noticeEl}
+          {noticeEl}
         </ScrollView>
       </View>
     </>

@@ -155,7 +155,6 @@ const Si = props => {
             borderWidth: 1,
             borderColor: '#56bcfc',
           }}
-         
         />
         <CustomButton
           title="SUBMIT"

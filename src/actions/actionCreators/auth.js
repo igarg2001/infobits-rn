@@ -1,4 +1,11 @@
-import {AUTH, AUTH_FAIL, AUTH_SUCCESS, LOGOUT, SET_AUTH, SET_ERROR} from '../actionTypes';
+import {
+  AUTH,
+  AUTH_FAIL,
+  AUTH_SUCCESS,
+  LOGOUT,
+  SET_AUTH,
+  SET_ERROR,
+} from '../actionTypes';
 import axios from '../../apis/axiosInstance';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -18,7 +25,7 @@ export const authSuccess = obj => {
 };
 
 export const authFailed = message => {
-  console.log("authFailed()", message)
+  console.log('authFailed()', message);
   return {
     type: AUTH_FAIL,
     message: message,
@@ -31,13 +38,13 @@ export const auth = (value, user) => {
     user: user,
   };
 };
-export const setError = (obj) => {
+export const setError = obj => {
   return {
     type: SET_ERROR,
     value: obj.value,
-    message: obj.message
-  }
-}
+    message: obj.message,
+  };
+};
 export const login = (userId, password, navigate) => {
   return dispatch => {
     dispatch(authStart());

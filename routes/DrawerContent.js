@@ -25,7 +25,8 @@ const DrawerContent = props => {
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1}}>
-      <View style={{width: '100%', height: "100%", position: "absolute", top: 0}}>
+      <View
+        style={{width: '100%', height: '100%', position: 'absolute', top: 0}}>
         <Pressable
           android_ripple={{color: '#cee8f0'}}
           style={style.profileWrapper}
@@ -124,9 +125,9 @@ const DrawerContent = props => {
             flexDirection: 'row',
             width: '100%',
             height: '12%',
-            position: "relative",
+            position: 'relative',
             bottom: 0,
-            marginTop: "2%"
+            marginTop: '2%',
           }}>
           <View style={{width: '33%', backgroundColor: '#75c3e8'}}></View>
           <View style={{width: '33%', backgroundColor: '#ed1c24'}}></View>

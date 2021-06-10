@@ -19,7 +19,7 @@ const HomeStack = () => {
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
-    <Stack.Screen name="HomeScreen" component={HomeScreen}></Stack.Screen>
+      <Stack.Screen name="HomeScreen" component={HomeScreen}></Stack.Screen>
       <Stack.Screen name="Spaces" component={Spaces}></Stack.Screen>
       <Stack.Screen name="Services" component={Services}></Stack.Screen>
       <Stack.Screen name="Resources" component={Resources}></Stack.Screen>

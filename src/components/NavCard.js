@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-} from 'react-native';
+import {Image, StyleSheet, Text, View, Pressable} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 
 const NavCard = props => {
@@ -14,8 +8,8 @@ const NavCard = props => {
       style={styles.wrapper}
       onPress={props.press}
       android_ripple={{
-        color: "#bcbcbc",
-        borderless: false
+        color: '#bcbcbc',
+        borderless: false,
       }}>
       <View style={{flex: 0.8}}>
         <Text style={styles.title}>{props.title}</Text>
@@ -24,7 +18,6 @@ const NavCard = props => {
       <View>
         <Image source={require('../assets/images/books.png')}></Image>
       </View>
-     
     </Pressable>
   );
 };
@@ -50,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: '5%',
     marginTop: '3%',
-    marginLeft: "-5%",
+    marginLeft: '-5%',
     elevation: 5,
   },
   title: {

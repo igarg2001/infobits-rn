@@ -4,8 +4,8 @@ import {TextInput, View, Pressable, Text, StyleSheet} from 'react-native';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PencilIcon from '../assets/svg/Pencil';
 
-import Eye from "../assets/svg/Eye"
-import EyeClose from "../assets/svg/EyeClose"
+import Eye from '../assets/svg/Eye';
+import EyeClose from '../assets/svg/EyeClose';
 
 const InputField = props => {
   let showPassword = null;
@@ -13,17 +13,15 @@ const InputField = props => {
   const [active, setActive] = useState(false);
   console.log(active);
 
-
-
   if (props.type === 'password') {
     showPassword = showPasswordState ? (
-      <Eye color="black" fill="#0c0c0c"/>
+      <Eye color="black" fill="#0c0c0c" />
     ) : (
-      <EyeClose fill="#0c0c0c"/>
+      <EyeClose fill="#0c0c0c" />
     );
   }
 
-  console.log(showPassword)
+  console.log(showPassword);
   const pencilIcon = props.editIcon ? <PencilIcon /> : null;
   let errorView = null;
   if (props.touched && !props.valid) {

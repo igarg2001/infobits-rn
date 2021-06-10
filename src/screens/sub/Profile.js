@@ -1,5 +1,12 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {ScrollView, StyleSheet, Text, Pressable, View, Image} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Image,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {logout} from '../../actions/actionCreators/auth';
 import BackIcon from '../../assets/svg/ArrowLeft';
@@ -21,7 +28,7 @@ import {
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
 import InvalidPasswordDialog from '../../components/InvalidPasswordDialog';
-import ImagePicker from "react-native-image-crop-picker"
+import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Profile = props => {
@@ -42,7 +49,7 @@ const Profile = props => {
 
   console.log(modal, modal2, confirmDialog);
 
-  const [imageState, setImageState] = useState(null)
+  const [imageState, setImageState] = useState(null);
 
   const pickImage = () => {
     ImagePicker.openPicker({
@@ -58,30 +65,36 @@ const Profile = props => {
       cropperStatusBarColor: 'white',
       cropperToolbarColor: 'white',
       cropperActiveWidgetColor: 'white',
-      cropperToolbarWidgetColor: '#339cde'
-    }).then((image) => {
-      console.log("received image", image);
-      let profileImageData = {
+      cropperToolbarWidgetColor: '#339cde',
+    })
+      .then(image => {
+        console.log('received image', image);
+        let profileImageData = {
           image: {
             uri: image.path,
             width: image.width,
             height: image.height,
             mime: image.mime,
           },
-          images: null
-        }
-        AsyncStorage.setItem("profileImageData", JSON.stringify(profileImageData)).then(res => {
-          console.log(res, 'set image in async storage')
-          setImageState(profileImageData);
-        }).catch(err => {
-          console.log(err);
-          setImageState(profileImageData);
-        })
-     
-    }).catch(err => {
-      console.log("error while receiving image", err)
-    })
-  }
+          images: null,
+        };
+        AsyncStorage.setItem(
+          'profileImageData',
+          JSON.stringify(profileImageData),
+        )
+          .then(res => {
+            console.log(res, 'set image in async storage');
+            setImageState(profileImageData);
+          })
+          .catch(err => {
+            console.log(err);
+            setImageState(profileImageData);
+          });
+      })
+      .catch(err => {
+        console.log('error while receiving image', err);
+      });
+  };
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -291,12 +304,14 @@ const Profile = props => {
     };
   }, []);
   useEffect(async () => {
-    AsyncStorage.getItem("profileImageData").then(res => {
-      console.log(JSON.parse(res), 'get image from async storage, if exists')
-      if(JSON.parse(res).image) setImageState(JSON.parse(res))
-    }).catch(err => console.log(err))
-  }, [])
-  console.log(imageState, "check value of imageState")
+    AsyncStorage.getItem('profileImageData')
+      .then(res => {
+        console.log(JSON.parse(res), 'get image from async storage, if exists');
+        if (JSON.parse(res).image) setImageState(JSON.parse(res));
+      })
+      .catch(err => console.log(err));
+  }, []);
+  console.log(imageState, 'check value of imageState');
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContent}>
@@ -329,17 +344,23 @@ const Profile = props => {
       </View>
 
       <View style={styles.avatar}>
-       {imageState ? <Image source={imageState.image} style={{width: 128, height: 128, borderRadius: 128}}/> : <Avatar.Text
-          label={
-            !userDetails.name || userDetails.name === ''
-              ? ''
-              : getInitials(userDetails.name)
-          }
-          color="white"
-          size={128}
-          style={{backgroundColor: '#56bcfc'}}
-        />}
-        
+        {imageState ? (
+          <Image
+            source={imageState.image}
+            style={{width: 128, height: 128, borderRadius: 128}}
+          />
+        ) : (
+          <Avatar.Text
+            label={
+              !userDetails.name || userDetails.name === ''
+                ? ''
+                : getInitials(userDetails.name)
+            }
+            color="white"
+            size={128}
+            style={{backgroundColor: '#56bcfc'}}
+          />
+        )}
       </View>
       <View
         style={{
@@ -349,7 +370,7 @@ const Profile = props => {
           justifyContent: 'center',
         }}>
         <Pressable
-        onPress={pickImage}
+          onPress={pickImage}
           android_ripple={{color: '#bcbcbc'}}
           style={{
             width: 34,
@@ -557,7 +578,7 @@ const Profile = props => {
           </Dialog>
         </Portal>
       </Provider>
-      <InvalidPasswordDialog visible={invalidPassword} action={props.logout}/>
+      <InvalidPasswordDialog visible={invalidPassword} action={props.logout} />
     </View>
   );
 };

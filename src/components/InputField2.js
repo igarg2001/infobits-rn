@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  TextInput,
-  View,
-  Pressable,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import {TextInput, View, Pressable, Text, StyleSheet} from 'react-native';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Eye from '../assets/svg/Eye';
@@ -103,7 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     marginHorizontal: 10,
-    color: "black"
+    color: 'black',
   },
   touchStyle: {
     // justifyContent: 'center',

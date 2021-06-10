@@ -21,7 +21,7 @@ const InvalidPasswordDialog = props => {
             elevation: 5,
             borderRadius: 5,
           }}>
-          <Dialog.Title style={{color: "black"}}>
+          <Dialog.Title style={{color: 'black'}}>
             {props.title ? props.title : 'INVALID PASSWORD!'}
           </Dialog.Title>
           <Dialog.Content>

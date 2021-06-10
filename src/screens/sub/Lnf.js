@@ -43,7 +43,7 @@ const Lnf = props => {
       })
       .catch(err => console.log(err));
   }, []);
-  items.map(i => console.log(i.status))
+  items.map(i => console.log(i.status));
   const itemsList = loaded ? (
     <FlatList
       style={{width: '100%', display: 'flex', marginBottom: '8%'}}
