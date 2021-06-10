@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 import AvatarIcon from '../src/assets/svg/Avatar';
+import {Avatar} from 'react-native-paper';
+import {getInitials} from '../src/utils/getInitials';
 
 const DrawerContent = props => {
   console.log(props.resUser);
@@ -10,6 +12,9 @@ const DrawerContent = props => {
     name: 'name',
     email: 'email',
   });
+
+  const [AvatarEl, setAvatarEl] = useState(null);
+
   const [dp, setDp] = useState('dp');
   useEffect(() => {
     AsyncStorage.getItem('userDetails').then(res => {
@@ -21,7 +26,32 @@ const DrawerContent = props => {
     });
   }, []);
 
-  console.log(AvatarIcon);
+  useEffect(() => {
+    AsyncStorage.getItem('profileImageData')
+      .then(res => {
+        const imageDetails = res ? JSON.parse(res) : null;
+        let ImageEl = null;
+        if (imageDetails && imageDetails.image) {
+          ImageEl = (
+            <Image
+              source={imageDetails.image}
+              style={{height: 52, width: 52, borderRadius: 52}}
+            />
+          );
+        } else {
+          ImageEl = (
+            <Avatar.Text
+              label={user.name === 'name' ? '' : getInitials(user.name)}
+              color="#4c4c4c"
+              style={{backgroundColor: '#f2f2f2'}}
+              size={52}
+            />
+          );
+        }
+        setAvatarEl(ImageEl);
+      })
+      .catch(err => console.log(err));
+  }, [user]);
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1}}>
@@ -32,9 +62,7 @@ const DrawerContent = props => {
           style={style.profileWrapper}
           onPress={() => props.navigation.navigate('Profile')}>
           <View style={style.avatar}>
-            <View style={{position: 'absolute', top: 0}}>
-              <AvatarIcon width="100%" />
-            </View>
+            <View style={{position: 'absolute', top: 0}}>{AvatarEl}</View>
           </View>
           <View style={style.details}>
             <Text style={{fontSize: 22, fontWeight: '500'}}>{user.name}</Text>
@@ -153,8 +181,6 @@ const style = StyleSheet.create({
   avatar: {
     width: 52,
     height: 52,
-    borderRadius: 52,
-    backgroundColor: '#f2f2f2',
   },
   drawerIcon: {
     width: 32,
